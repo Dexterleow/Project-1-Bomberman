@@ -1,0 +1,20 @@
+
+
+#stage
+{
+position:relative;
+width:832px;
+height:704px;
+background-image: url("../img/Games-Artwork/background.jpg");
+}
+
+.cell{
+display:block;
+position:absolute;
+width:64px;
+height:64px;
+}
+
+p{
+  width:400px;
+}
