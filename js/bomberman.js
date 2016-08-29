@@ -82,7 +82,7 @@ var UP = 38; //Keycode for up
 var DOWN = 40; //Keycode for down
 var RIGHT = 39; //Keycode for right
 var LEFT = 37; //Keycode for left
-
+var SPACEBAR = 32; //Keycode for Spacebar
 
 function movebotSpiderRow()
 {
@@ -222,32 +222,40 @@ function keydownHandler(event)
       console.log("moving right");
     }
     break;
+
+    case SPACEBAR:
+    {
+      console.log("A Bomb has been planted.");
+      placeBomb();
+    }
+    break;
+
   }
 }
 //Finding out where the main hero is.   (It's off for now. will uncomment it later.)
 
 //find out what kind of cell the hero is on
-// switch(map[heroRow][heroColumn])
-// {
-//   case standardTile:
-// console.log("Switch is working.")
-//     break;
-//
-//   case softWall:
-//
-//     break;
-//
-//   case hardWall:
-//
-//     break;
-//
-//   case botGhost:
-//
-//     break;
-//
-//     case botSpider:
-//     break;
-// }
+switch(map[heroRow][heroColumn])
+{
+  case standardTile:
+  console.log("Switch is working.")
+  break;
+
+  case softWall:
+
+  break;
+
+  case hardWall:
+
+  break;
+
+  case botGhost:
+
+  break;
+
+  case botSpider:
+  break;
+}
 
 
 
@@ -321,3 +329,67 @@ function render()
     }
   }
 }
+
+
+
+
+//Smooth Implementation of keyPressDown
+// keyisdown=false
+// keydown event{
+//     if(!keyisdown){
+//         //This is the 'real' keydown event, the one that only happens the moment the
+//         //key is pressed down. You may not need it, but this is how you construct it.
+//     }
+//     keyisdown=true
+// }
+//
+// keyup event{
+//     keyisdown=false
+// }
+
+///Making the bomb.
+bombobject = {} //That is all it takes to make an object.
+// bombobject.blowtime = delay
+// bombobject.position = mapobject
+// mapobject.bomb = bombobject
+
+function placeBomb(){
+
+    // if(placebomb && hero.bombs != 0)
+    {
+        // map[heroRow][heroColumn].object = 2;
+        var bombRow = [heroRow];
+        var bombColumn = [heroColumn];
+        // placebomb = false;
+        // player.bombs--;
+        // setTimeout(explode, 3000);
+        console.log("Bomb has exploded")
+    }
+    // function explode(){
+    //     alert('BOOM!');
+    //     delete map[bombY][bombX].object;
+    //     player.bombs++;
+    // }
+}
+//
+// ///Making the bomb.
+// bombobject = {} //That is all it takes to make an object.
+// bombobject.blowtime = currenttime + delay
+// bombobject.position = mapobject
+// mapobject.bomb = bombobject
+//
+// function placeBomb(){
+//     if(placebomb && player.bombs != 0){
+//         map[player.Y][player.X].object = 2;
+//         var bombX = player.X;
+//         var bombY = player.Y;
+//         placebomb = false;
+//         player.bombs--;
+//         setTimeout(explode, 3000);
+//     }
+//     function explode(){
+//         alert('BOOM!');
+//         delete map[bombY][bombX].object;
+//         player.bombs++;
+//     }
+// }
