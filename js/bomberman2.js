@@ -1,12 +1,5 @@
 console.log('Javascript,are you there?')
 
-//Selecting the stage and output
-var stage = document.querySelector("#stage");
-var output = document.querySelector("#output");
-
-//Making the hero moves
-window.addEventListener("keydown", keydownHandler, false);
-
 // mapLevel1
 var map = [
   [0,0,0,1,1,0,0,0,1,0,0,0,0],
@@ -42,32 +35,25 @@ var softWall = 1;
 var hardWall = 2;
 var botGhost = 3;
 var botSpider = 4;
-var HERO = 5;
-
-//The number of rows and columns in the mapLevel1
-var ROWS = map.length;
-var COLUMNS = map[0].length;
-
-// The size of each tile
-var SIZE = 64;
+var mainHero = 5;
 
 //Movement of the mainHero
-var heroRow;
-var heroColumn;
+var mainHeroRow;
+var mainHeroColumn;
 
 //Movement of botSpider
 var botSpiderRow;
 var botSpiderColumn;
 
-//program uses a loop to figure out where the hero is in the object array.
+//program uses a loop to figure out where the ship is in the object array.
 for(var row = 0;row < ROWS; row++)
 {
-  for(var column = 0; column < COLUMNS; column++)
+  for(var column = 0; column < COLUMNS;column++)
   {
-    if(gameObjects[row][column] === HERO)
+    if(gameObjects[row][column] === mainHero)
     {
-      heroRow = row;
-      heroColumn = column;
+      mainHeroRow = row;
+      mainHeroColumn = column;
     }
     if(gameObjects[row][column] === botSpider)
     {
@@ -77,12 +63,7 @@ for(var row = 0;row < ROWS; row++)
   }
 }
 
-//Up, down, left,right constant keys
-var UP = 38; //Keycode for up
-var DOWN = 40; //Keycode for down
-var RIGHT = 39; //Keycode for right
-var LEFT = 37; //Keycode for left
-
+movebotSpiderRow();
 
 function movebotSpiderRow()
 {
@@ -155,100 +136,123 @@ function movebotSpiderRow()
 
     case DOWN:
     gameObjects[botSpiderRow][botSpiderColumn] = 0;
-    botSpiderRow++;
+    monsterRow++;
     gameObjects[botSpiderRow][botSpiderColumn] = botSpider;
     break;
 
     case LEFT:
     gameObjects[botSpiderRow][botSpiderColumn] = 0;
-    botSpiderRow--;
+    monsterColumn--;
     gameObjects[botSpiderRow][botSpiderColumn] = botSpider;
     break;
 
     case RIGHT:
     gameObjects[botSpiderRow][botSpiderColumn] = 0;
-    botSpiderRow++;
+    monsterColumn++;
     gameObjects[botSpiderRow][botSpiderColumn] = botSpider;
   }
 }
 
-movebotSpiderRow();
 
-function keydownHandler(event)
+//Selecting the stage and output
+var stage = document.querySelector("#stage");
+var output = document.querySelector("#output");
+
+
+// The size of each tile
+var SIZE = 64;
+
+//The number of rows and columns in the mapLevel1
+var ROWS = map.length;
+var COLUMNS = map[0].length;
+
+//Making the hero moves
+window.addEventListener("keydown", keydownHandler, false);
+
+//Up, down, left,right constant keys
+var UP = 38; //Keycode for up
+var DOWN = 40; //Keycode for down
+var RIGHT = 39; //Keycode for right
+var LEFT = 37; //Keycode for left
+
+
+function keydownHandler(event) //for the movement of main hero
 {
   switch(event.keyCode)
   {
     case UP:
-    if(heroRow > 0)
+    //Find out if the mainHero's move will be within the playing field
+    if(mainHeroRow > 0)
     {
-      //Clear the hero's current cell
-      gameObjects[heroRow][heroColumn] = 0;
-
-      //Subract 1 from the hero's row
-      heroRow--;
-
-      //Apply the hero's new updated position to the array
-      gameObjects[heroRow][heroColumn] = HERO;
-      console.log("moving up");
+      //If it is, clear the mainHero's current cell
+      gameObjects[mainHeroRow][mainHeroColumn] = 0;
+      //Subtract 1 from the mainHero's row to move it up one row on the map
+      mainHeroRow--;
+      //Apply the mainHero's new updated position to the array
+      gameObjects[mainHeroRow][mainHeroColumn] = mainHero;
     }
     break;
 
     case DOWN:
-    if(heroRow < ROWS - 1)
+    if(mainHeroRow < ROWS - 1)
     {
-      gameObjects[heroRow][heroColumn] = 0;
-      heroRow++;
-      gameObjects[heroRow][heroColumn] = HERO;
-      console.log("moving down");
+      gameObjects[mainHeroRow][mainHeroColumn] = 0;
+      mainHeroRow++;
+      gameObjects[mainHeroRow][mainHeroColumn] = mainHero;
     }
     break;
 
     case LEFT:
-    if(heroColumn > 0)
+    if(mainHeroColumn > 0)
     {
-      gameObjects[heroRow][heroColumn] = 0;
-      heroColumn--;
-      gameObjects[heroRow][heroColumn] = HERO;
-      console.log("moving left");
+      gameObjects[mainHeroRow][mainHeroColumn] = 0;
+      mainHeroColumn--;
+      gameObjects[mainHeroRow][mainHeroColumn] = mainHero;
     }
     break;
 
     case RIGHT:
-    if(heroColumn < COLUMNS - 1)
+    if(mainHeroColumn < COLUMNS - 1)
     {
-      gameObjects[heroRow][heroColumn] = 0;
-      heroColumn++;
-      gameObjects[heroRow][heroColumn] = HERO;
-      console.log("moving right");
+      gameObjects[mainHeroRow][mainHeroColumn] = 0;
+      mainHeroColumn++;
+      gameObjects[mainHeroRow][mainHeroColumn] = mainHero;
     }
     break;
-  }
-}
-//Finding out where the main hero is.   (It's off for now. will uncomment it later.)
 
-//find out what kind of cell the hero is on
-// switch(map[heroRow][heroColumn])
+    // var keyPressed = String.fromCharCode(event.keyCode);
+    //
+    // case keyPressed == "D":
+    // console.log("Keys are working fine!")
+    // break;
+  }
+  //Render the game
+
+}
+
+//Finding out where the main hero is.   (It's off for now. will uncomment it later.)
+// switch(map[mainHeroRow][mainHeroColumn])
 // {
 //   case standardTile:
-// console.log("Switch is working.")
-//     break;
+//   console.log("standardTile");
+//   break;
 //
 //   case softWall:
-//
-//     break;
+//   console.log("softWall");
+//   break;
 //
 //   case hardWall:
-//
-//     break;
+//   console.log("hardWall");
+//   break;
 //
 //   case botGhost:
+//   console.log("botGhost");
+//   break;
 //
-//     break;
-//
-//     case botSpider:
-//     break;
+//   case botSpider:
+//   console.log("botSpider");
+//   break;
 // }
-
 
 
 render();
@@ -256,14 +260,14 @@ render();
 function render()
 {
   //Clear the stage of img tag cells from the previous turn
+
   // if(stage.hasChildNodes())
   // {
   //   for(var i = 0; i < ROWS * COLUMNS; i++)
   //   {
   //     stage.removeChild(stage.firstChild);
   //   }
-  // }
-
+  // }  //Will come back to it later.
   //Render the game by looping through the map arrays
   for(var row = 0; row < ROWS;row++)
   {
@@ -303,15 +307,15 @@ function render()
       }
 
       //Add the mainHero from the gameObjects array
-      switch(gameObjects[row][column])
-      {
-        case HERO:
-        cell.src = "/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/mainHero_front_view.png";
-        break;
-
-        case botSpider:
-        cell.src = "/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/botSpider.png";
-        break;
+      // switch(gameObjects[row][column])
+      // {
+      //   case mainHero:
+      //   cell.src = "/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/mainHero_front_view.png";
+      //   break;
+      //
+      //   case botSpider:
+      //   cell.src = "/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/botSpider.png";
+      //   break;
 
       }
 
@@ -319,5 +323,34 @@ function render()
       cell.style.top = row * SIZE + "px";
       cell.style.left = column * SIZE + "px";
     }
+
   }
 }
+
+
+
+
+//Find out if the ship is touching the monster
+// if(gameObjects[shipRow][shipColumn] === MONSTER)
+// {
+// endGame();
+// }
+//
+// function endGame()
+// {
+// if(map[shipRow][shipColumn] === HOME)
+// {
+// //... Figure out the score
+// }
+// else if(gameObjects[shipRow][shipColumn] === MONSTER)
+// {
+// gameMessage
+// = "Your ship has been swallowed by a sea monster!";
+// }
+// else
+// {
+// //... You run out of food or gold
+// }
+// //Remove the keyboard listener to end the game
+// window.removeEventListener("keydown", keydownHandler, false);
+// }
