@@ -1,20 +1,36 @@
 
-
 #stage
 {
-position:relative;
-width:832px;
-height:704px;
-background-image: url("../img/Games-Artwork/background.jpg");
+  position:relative;
+  width:832px;
+  height:704px;
+  background-image: url("../img/Games-Artwork/background.jpg");
+  margin: auto;
 }
 
-.cell{
-display:block;
-position:absolute;
-width:64px;
-height:64px;
+
+.cell
+{
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
 }
 
-p{
-  width:400px;
+h1
+{
+  text-align: center;
+  font-family: Arial;
+  font-size: 50px;
+  background-color: #d19e9c;
+}
+
+p
+{
+  font-family: Arial;
+  font-size: 20px;
+  width: 828px;
+  padding: 10px;
+  background-color: #d19e9c;
+  margin:auto;
 }
