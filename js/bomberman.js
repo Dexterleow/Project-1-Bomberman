@@ -5,6 +5,7 @@ var output = document.querySelector("#output");
 
 //Add a keyboard listener
 window.addEventListener("keydown", keydownHandler, false);
+window.setInterval(render, 500);
 
 //The game map
 var map = [
@@ -37,6 +38,20 @@ var gameObjects = [
 ];
 // change 0 to softWall and hardwall for the object to stop bumping into it.
 
+var bombArray = [
+  [0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0,0],
+];
+
 //Map code
 var STANDARDTILE = 0;
 var SOFTWALL = 1; //softWall
@@ -49,6 +64,8 @@ var MONSTER_THREE = 7;
 var MONSTER_FOUR = 8;
 var MONSTER_FIVE = 9;
 var STANDARDTILE2 = 10;
+var BOMB = 11;
+var Fire = 12;
 
 //The size of each cell
 var SIZE = 64;
@@ -66,6 +83,8 @@ var monsterRow_Two;
 var monsterColumn_Two;
 var monsterRow_Three;
 var monsterColumn_Three;
+var bombRow
+var bombColumn
 // var monsterRow_Four;
 // var monsterColumn_Four;
 // var monsterRow_Five;
@@ -122,6 +141,13 @@ function keydownHandler(event) {
       heroRow--;
 
       //Apply the hero's new updated position to the array
+      // gameObjects[heroRow][heroColumn] = HERO;
+
+      //If the new position is not zero. Do not allow the move
+      if (map[heroRow][heroColumn] > 0) //Compare tiles
+      {
+        heroRow++;
+      };
       gameObjects[heroRow][heroColumn] = HERO;
     }
     break;
@@ -131,6 +157,12 @@ function keydownHandler(event) {
     {
       gameObjects[heroRow][heroColumn] = 0;
       heroRow++;
+
+      if (map[heroRow][heroColumn] > 0)
+      {
+        heroRow--;
+      };
+
       gameObjects[heroRow][heroColumn] = HERO;
     }
     break;
@@ -140,6 +172,12 @@ function keydownHandler(event) {
     {
       gameObjects[heroRow][heroColumn] = 0;
       heroColumn--;
+
+      if (map[heroRow][heroColumn] > 0)
+      {
+        heroColumn++;
+      };
+
       gameObjects[heroRow][heroColumn] = HERO;
     }
     break;
@@ -149,6 +187,13 @@ function keydownHandler(event) {
     {
       gameObjects[heroRow][heroColumn] = 0;
       heroColumn++;
+
+      if (map[heroRow][heroColumn] > 0)
+      {
+        heroColumn--;
+      };
+
+
       gameObjects[heroRow][heroColumn] = HERO;
     }
     break;
@@ -209,39 +254,68 @@ function placeBomb(){
   // if(placebomb && player.bombs != 0)
   //     map[heroColumn][heroRow].object = 2;
   {
-    var bombRow = heroRow;
-    var bombColumn = heroColumn;
+    var bombRow1 = heroRow;
+    var bombColumn1 = heroColumn;
+
+    bombArray[bombRow1][bombColumn1] = 11;
     //placebomb = false;
     bombPack--;
 
-    var myImage = new Image(56, 56);
-    myImage.src = "/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/Smoothie_Smash_Bomb.gif";
-    console.log(myImage);
-    var stage = document.getElementById('stage')
-    var player = document.getElementById('player')
-    console.log(player);
+    // var myImage = new Image(56, 56);
+    // myImage.src = "/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/Smoothie_Smash_Bomb.gif";
+    // console.log(myImage);
+    // var stage = document.getElementById('stage')
+    // var player = document.getElementById('player')
 
     //the next two lines needs further debugging
-    player.appendChild(myImage)
-    stage.appendChild(player)
-
-
-    stage.appendChild(myImage)
+    // player.appendChild(myImage)
+    // stage.appendChild(player)
+    //
+    //
+    // stage.appendChild(myImage)
     // <img src="/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/Smoothie_Smash_Bomb.gif" alt="bombExploding" style="width:48px;height:48px;">
 
-    setTimeout(explode, 3000);
+    //console.log(bombRow1,bombColumn1)
+    setTimeout(function() {
+      explode(bombRow1,bombColumn1);
+    }, 2000);
     console.log("Bomb has been triggered");
+
+
   }
-  function explode(){
-    alert('BOOM!');
+  function explode(bombRow1, bombColumn1){
+    //alert('BOOM!');
+    bombArray[bombRow1][bombColumn1] = 0;
     console.log("Row: ", bombRow, "Col: ", bombColumn);
     // if (map[bombRow][++bombColumn] = '0' || map[bombRow][++bombColumn]) = '1') {
-    map[bombRow][++bombColumn] = '0';
-    // } //bombed the right tile
-    map[bombRow][--bombColumn] = '0'; // bombed the original bomb spot
-    map[++bombRow][bombColumn] = '0'; //bombed one tile below
-    map[bombRow - 1][bombColumn - 1] ='0';                                  //bombed the left tile
-    map[bombRow - 2][bombColumn] ='0'; //bombed the above tile
+
+    //Right
+    if ((map[bombRow1][bombColumn1 + 1] < 2) && (bombColumn1 <= COLUMNS)) {
+      map[bombRow1][bombColumn1 + 1] = 0;
+    }
+
+    //Useless, player cannot move to non-movable tiles
+    if (map[bombRow1][bombColumn1] < 2) {
+    map[bombRow1][bombColumn1] = 0; // bombed the original bomb spot
+    }
+
+    //Below
+    if ((map[bombRow1 + 1][bombColumn1]  < 2) && (bombRow1 <= ROWS)) {
+    map[bombRow1 + 1][bombColumn1] = 0; //bombed one tile below
+    }
+
+    //Left
+    if ((map[bombRow1][bombColumn1 - 1] < 2) && (bombColumn1 >= 0)) {
+    map[bombRow1][bombColumn1 - 1] = 0;
+    }                                  //bombed the left tile
+
+    //Above
+    if ((map[bombRow1 - 1][bombColumn1] < 2) &&  (bombRow1 >= 0)) {
+    map[bombRow1 - 1][bombColumn1] = 0 ; //bombed the above tile
+    }
+
+    console.log(map);
+
 
     bombPack++;
   }
@@ -269,7 +343,7 @@ function moveMonster() //Movement for monster.no1
   if(monsterRow > 0)
   {
     var thingAbove = map[monsterRow - 1][monsterColumn];
-    if(thingAbove === STANDARDTILE)
+    if(thingAbove === 0)
     {
       validDirections.push(UP);
     }
@@ -277,7 +351,7 @@ function moveMonster() //Movement for monster.no1
   if(monsterRow < ROWS - 1)
   {
     var thingBelow = map[monsterRow + 1][monsterColumn];
-    if(thingBelow === STANDARDTILE)
+    if(thingBelow === 0)
     {
       validDirections.push(DOWN);
     }
@@ -285,7 +359,7 @@ function moveMonster() //Movement for monster.no1
   if(monsterColumn > 0)
   {
     var thingToTheLeft = map[monsterRow][monsterColumn - 1];
-    if(thingToTheLeft === STANDARDTILE)
+    if(thingToTheLeft === 0)
     {
       validDirections.push(LEFT);
     }
@@ -293,7 +367,7 @@ function moveMonster() //Movement for monster.no1
   if(monsterColumn < COLUMNS - 1)
   {
     var thingToTheRight = map[monsterRow][monsterColumn + 1];
-    if(thingToTheRight === STANDARDTILE)
+    if(thingToTheRight === 0)
     {
       validDirections.push(RIGHT);
     }
@@ -365,7 +439,7 @@ function moveMonster_Two() //Movement for monster.no2
   if(monsterRow_Two > 0)
   {
     var thingAbove = map[monsterRow_Two - 1][monsterColumn_Two];
-    if(thingAbove === STANDARDTILE);
+    if(thingAbove === 0); // change this from standardtile to 0 or 1
     {
       validDirections.push(UP);
     }
@@ -373,7 +447,7 @@ function moveMonster_Two() //Movement for monster.no2
   if(monsterRow_Two < ROWS - 1)
   {
     var thingBelow = map[monsterRow_Two + 1][monsterColumn_Two];
-    if(thingBelow === STANDARDTILE)
+    if(thingBelow === 0) // change this from standardtile to 0 or 1
     {
       validDirections.push(DOWN);
     }
@@ -381,7 +455,7 @@ function moveMonster_Two() //Movement for monster.no2
   if(monsterColumn_Two > 0)
   {
     var thingToTheLeft = map[monsterRow_Two][monsterColumn_Two - 1];
-    if(thingToTheLeft === STANDARDTILE)
+    if(thingToTheLeft === 0) // change this from standardtile to 0 or 1
     {
       validDirections.push(LEFT);
     }
@@ -389,7 +463,7 @@ function moveMonster_Two() //Movement for monster.no2
   if(monsterColumn_Two < COLUMNS - 1)
   {
     var thingToTheRight = map[monsterRow_Two][monsterColumn_Two + 1];
-    if(thingToTheRight === STANDARDTILE)
+    if(thingToTheRight === 0) // change this from standardtile to 0 or 1
     {
       validDirections.push(RIGHT);
     }
@@ -460,6 +534,7 @@ function moveMonster_Three() //Movement for monster.no3
   if(monsterRow_Three > 0)
   {
     var thingAbove = map[monsterRow_Three - 1][monsterColumn_Three];
+    if(thingAbove === 0);
     {
       validDirections.push(UP);
     }
@@ -467,6 +542,7 @@ function moveMonster_Three() //Movement for monster.no3
   if(monsterRow_Three < ROWS - 1)
   {
     var thingBelow = map[monsterRow_Three + 1][monsterColumn_Three];
+    if(thingBelow === 0)
     {
       validDirections.push(DOWN);
     }
@@ -474,7 +550,7 @@ function moveMonster_Three() //Movement for monster.no3
   if(monsterColumn_Three > 0)
   {
     var thingToTheLeft = map[monsterRow_Three][monsterColumn_Three - 1];
-    if(thingToTheLeft === STANDARDTILE)
+    if(thingToTheLeft === 0)
     {
       validDirections.push(LEFT);
     }
@@ -482,7 +558,7 @@ function moveMonster_Three() //Movement for monster.no3
   if(monsterColumn_Three < COLUMNS - 1)
   {
     var thingToTheRight = map[monsterRow_Three][monsterColumn_Three + 1];
-    if(thingToTheRight === STANDARDTILE)
+    if(thingToTheRight === 0)
     {
       validDirections.push(RIGHT);
     }
@@ -546,22 +622,11 @@ function endGame()
   // else if(gameObjects[heroRow][heroColumn] === MONSTER)
   // {
   //   gameMessage
-  //     = "Your hero has been swallowed by a sea monster!";
+  //     = "Your hero has been swallowed by a monster!";
   // }
   // else
   // {
-  //   //Display the game message
-  //   if(gold <= 0)
-  //   {
-  //     gameMessage += " You've run out of gold!";
-  //   }
-  //   else
-  //   {
-  //     gameMessage += " You've run out of food!";
-  //   }
-  //
-  //   gameMessage
-  //     += " Your crew throws you overboard!";
+  //   console.log(:)
   // }
 
   //Remove the keyboard listener to end the game
@@ -615,6 +680,16 @@ function render()
         //   break;
       }
 
+      switch(bombArray[row][column])
+      {
+        case BOMB:
+        cell.src ="/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/Smoothie_Smash_Bomb.gif";
+
+        break;
+        // case HOME:
+        //   cell.src = "../images/home.png";
+        //   break;
+      }
       //Add the hero and monster from the gameObjects array
       switch(gameObjects[row][column])
       {
@@ -626,12 +701,12 @@ function render()
         case HERO:
         cell.src ="/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/mainHero_front_view.png"
 
-        var parent = document.getElementById('stage')
-        var wrapper = document.createElement('div')
-        wrapper.setAttribute('id', 'player')
-
-        parent.replaceChild(wrapper, cell)
-        wrapper.appendChild(cell)
+        // var parent = document.getElementById('stage')
+        // var wrapper = document.createElement('div')
+        // wrapper.setAttribute('id', 'player')
+        //
+        // parent.replaceChild(wrapper, cell)
+        // wrapper.appendChild(cell)
 
         break;
 
