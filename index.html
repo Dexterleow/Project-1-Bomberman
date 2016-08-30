@@ -101,6 +101,7 @@ var MONSTER_TWO = 6;
 var MONSTER_THREE = 7;
 var MONSTER_FOUR = 8;
 var MONSTER_FIVE = 9;
+var WATER2 = 10;
 
 //The size of each cell
 var SIZE = 64;
@@ -287,14 +288,38 @@ function placeBomb(){
     //turn the soft wall into soft tile.
     //turning an arrary value from something to 0
     //above, below, right, left tiles into standard tiles.
-    if map 3 or 4 turn it into 0
+    // if map 3 or 4 turn it into 0
+    // turn from 1 into 0
+    // var map
+    // function isBigEnough(value) {
+    //   return value = 1;
+    // }
+    // var filtered = map.filter(isBigEnough);
+    // // filtered is [12, 130, 44]
+    // console.log("Array Filtered");
 
+    // var i = map[bombRow][++bombColumn];
+    console.log("Row: ", bombRow, "Col: ", bombColumn);
+    // var j = map[shipRow - 1][shipColumn - 1];
+    // map[i] = '1';
+    map[bombRow][++bombColumn] = '0'; //bombed the right tile
+    map[bombRow][--bombColumn] = '0'; // bombed the original bomb spot
+    map[++bombRow][bombColumn] = '0'; //bombed one tile below
+    map[bombRow - 1][bombColumn - 1] ='0';                                  //bombed the left tile
+    map[bombRow - 2][bombColumn] ='0'; //bombed the above tile
 
     bombPack++;
   }
+  console.log("Change the softWall into standardTile")
 }
 
-
+// var i = map[shipRow][++shipColumn];
+// console.log("Row: ", shipRow, "Col: ", shipColumn);
+// // var j = map[shipRow - 1][shipColumn - 1];
+// // map[i] = '1';
+// map[shipRow][shipColumn] = '1';
+// // map[j] = '1';
+// bombPack++; //Keep for Reference
 
 
 function moveMonster() //Movement for monster.no1
@@ -669,6 +694,11 @@ function render()
       //Add the ship and monster from the gameObjects array
       switch(gameObjects[row][column])
       {
+
+        case WATER2:
+        cell.src = "/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/standardTile.png";
+        break;
+
         case SHIP:
         cell.src ="/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/mainHero_front_view.png";
         break;
