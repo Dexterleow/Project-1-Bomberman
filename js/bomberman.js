@@ -42,32 +42,31 @@ var softWall = 1;
 var hardWall = 2;
 var botGhost = 3;
 var botSpider = 4;
-var HERO = 5;
+var SHIP = 5;
 
-//The number of rows and columns in the mapLevel1
+
+
+//The size of each cell
+var SIZE = 64;
+
+//The number of rows and columns
 var ROWS = map.length;
 var COLUMNS = map[0].length;
 
-// The size of each tile
-var SIZE = 64;
-
-//Movement of the mainHero
-var heroRow;
-var heroColumn;
-
-//Movement of botSpider
+//Find the ship's and monster's start positions
+var shipRow;
+var shipColumn;
 var botSpiderRow;
 var botSpiderColumn;
 
-//program uses a loop to figure out where the hero is in the object array.
-for(var row = 0;row < ROWS; row++)
+for(var row = 0; row < ROWS; row++)
 {
   for(var column = 0; column < COLUMNS; column++)
   {
-    if(gameObjects[row][column] === HERO)
+    if(gameObjects[row][column] === SHIP)
     {
-      heroRow = row;
-      heroColumn = column;
+      shipRow = row;
+      shipColumn = column;
     }
     if(gameObjects[row][column] === botSpider)
     {
@@ -77,211 +76,251 @@ for(var row = 0;row < ROWS; row++)
   }
 }
 
-//Up, down, left,right constant keys
-var UP = 38; //Keycode for up
-var DOWN = 40; //Keycode for down
-var RIGHT = 39; //Keycode for right
-var LEFT = 37; //Keycode for left
-var SPACEBAR = 32; //Keycode for Spacebar
+//Arrow key codes
+var UP = 38;
+var DOWN = 40;
+var RIGHT = 39;
+var LEFT = 37;
 
-function movebotSpiderRow()
-{
-  //The 4 possible directions that the monster can move
-  var UP = 1;
-  var DOWN = 2;
-  var LEFT = 3;
-  var RIGHT = 4;
-  //An array to store the valid direction that the monster is allowed to move in
-  var validDirections = [];
-  //The final direction that the monster will move in
-  var direction = undefined;
-  //Find out what kinds of things are in the cells
-  //that surround the monster. If the cells contain WATER,
-  //push the corresponding direction (UP, DOWN, LEFT, or RIGHT) into the validDirections array
-  if(botSpiderRow > 0)
-  {
-    var thingAbove = map[botSpiderRow - 1][botSpiderColumn];
-
-    if(thingAbove === standardTile)
-    {
-      validDirections.push(UP)
-    }
-  }
-  if(botSpiderRow < ROWS - 1)
-  {
-    var thingBelow = map[botSpiderRow + 1][botSpiderColumn];
-    if(thingBelow === standardTile)
-    {
-      validDirections.push(DOWN)
-    }
-  }
-  if(botSpiderColumn > 0)
-  {
-    var thingToTheLeft = map[botSpiderRow][botSpiderColumn - 1];
-    if(thingToTheLeft === standardTile)
-    {
-      validDirections.push(LEFT)
-    }
-  }
-  if(botSpiderColumn < COLUMNS - 1)
-  {
-    var thingToTheRight = map[botSpiderRow][botSpiderColumn + 1];
-    if(thingToTheRight === standardTile)
-    {
-      validDirections.push(RIGHT)
-    }
-  }
-  //The validDirections array now contains 0 to 4 directions that
-  //contain WATER cells. Which of those directions will the monster
-  //choose to move in?
-  //If a valid direction was found, randomly choose one of the
-  //possible directions and assign it to the direction variable
-  if(validDirections.length !== 0)
-  {
-    var randomNumber = Math.floor(Math.random() * validDirections.length);
-    direction = validDirections[randomNumber];
-  }
-  //Move the monster in the chosen random direction
-  switch(direction)
-  {
-    case UP:
-    //Clear the monster's current cell
-    gameObjects[botSpiderRow][botSpiderColumn] = 0;
-    //Subtract 1 from the monster's row
-    botSpiderRow--;
-    //Apply the monster's new updated position to the array
-    gameObjects[botSpiderRow][botSpiderColumn] = botSpider;
-    break;
-
-    case DOWN:
-    gameObjects[botSpiderRow][botSpiderColumn] = 0;
-    botSpiderRow++;
-    gameObjects[botSpiderRow][botSpiderColumn] = botSpider;
-    break;
-
-    case LEFT:
-    gameObjects[botSpiderRow][botSpiderColumn] = 0;
-    botSpiderRow--;
-    gameObjects[botSpiderRow][botSpiderColumn] = botSpider;
-    break;
-
-    case RIGHT:
-    gameObjects[botSpiderRow][botSpiderColumn] = 0;
-    botSpiderRow++;
-    gameObjects[botSpiderRow][botSpiderColumn] = botSpider;
-  }
-}
-
-movebotSpiderRow();
+render();
 
 function keydownHandler(event)
 {
   switch(event.keyCode)
   {
     case UP:
-    if(heroRow > 0)
-    {
-      //Clear the hero's current cell
-      gameObjects[heroRow][heroColumn] = 0;
+	    if(shipRow > 0)
+	    {
+	      //Clear the ship's current cell
+	      gameObjects[shipRow][shipColumn] = 0;
 
-      //Subract 1 from the hero's row
-      heroRow--;
+	      //Subract 1 from the ship's row
+	      shipRow--;
 
-      //Apply the hero's new updated position to the array
-      gameObjects[heroRow][heroColumn] = HERO;
-      console.log("moving up");
-    }
+	      //Apply the ship's new updated position to the array
+	      gameObjects[shipRow][shipColumn] = SHIP;
+	    }
+	    break;
+
+	  case DOWN:
+	    if(shipRow < ROWS - 1)
+	    {
+	      gameObjects[shipRow][shipColumn] = 0;
+	      shipRow++;
+	      gameObjects[shipRow][shipColumn] = SHIP;
+	    }
+	    break;
+
+	  case LEFT:
+	    if(shipColumn > 0)
+	    {
+	      gameObjects[shipRow][shipColumn] = 0;
+	      shipColumn--;
+	      gameObjects[shipRow][shipColumn] = SHIP;
+	    }
+	    break;
+
+	  case RIGHT:
+	    if(shipColumn < COLUMNS - 1)
+	    {
+	      gameObjects[shipRow][shipColumn] = 0;
+	      shipColumn++;
+	      gameObjects[shipRow][shipColumn] = SHIP;
+	    }
+	    break;
+  }
+
+  //find out what kind of cell the ship is on
+  switch(map[shipRow][shipColumn])
+  {
+    case standardTile:
+    console.log("Switch is working.")
     break;
 
-    case DOWN:
-    if(heroRow < ROWS - 1)
-    {
-      gameObjects[heroRow][heroColumn] = 0;
-      heroRow++;
-      gameObjects[heroRow][heroColumn] = HERO;
-      console.log("moving down");
-    }
+    case softWall:
+
     break;
 
-    case LEFT:
-    if(heroColumn > 0)
-    {
-      gameObjects[heroRow][heroColumn] = 0;
-      heroColumn--;
-      gameObjects[heroRow][heroColumn] = HERO;
-      console.log("moving left");
-    }
+    case hardWall:
+
     break;
 
-    case RIGHT:
-    if(heroColumn < COLUMNS - 1)
-    {
-      gameObjects[heroRow][heroColumn] = 0;
-      heroColumn++;
-      gameObjects[heroRow][heroColumn] = HERO;
-      console.log("moving right");
-    }
+    case botGhost:
+
     break;
 
-    case SPACEBAR:
-    {
-      console.log("A Bomb has been planted.");
-      placeBomb();
-    }
+    case botSpider:
     break;
+  }
 
+  //Move the monster
+  moveMonster();
+
+
+  //Find out if the ship is touching the monster
+  if(gameObjects[shipRow][shipColumn] === botSpider)
+  {
+    endGame();
+  }
+
+
+  //Render the game
+  render();
+}
+
+function moveMonster()
+{
+  //The 4 possible directions that the monster can move
+  var UP = 1;
+  var DOWN = 2;
+  var LEFT = 3;
+  var RIGHT = 4;
+
+  //An array to store the valid direction that
+  //the monster is allowed to move in
+  var validDirections = [];
+
+  //The final direction that the monster will move in
+  var direction = undefined;
+
+  //Find out what kinds of things are in the cells
+  //that surround the monster. If the cells contain water,
+  //push the corresponding direction into the validDirections array
+  if(botSpiderRow > 0)
+  {
+    var thingAbove = map[botSpiderRow - 1][botSpiderColumn];
+    if(thingAbove === standardTile)
+	  {
+	    validDirections.push(UP);
+	  }
+  }
+  if(botSpiderRow < ROWS - 1)
+  {
+    var thingBelow = map[botSpiderRow + 1][botSpiderColumn];
+    if(thingBelow === standardTile)
+	  {
+	    validDirections.push(DOWN);
+	  }
+  }
+  if(botSpiderColumn > 0)
+  {
+    var thingToTheLeft = map[botSpiderRow][botSpiderColumn - 1];
+    if(thingToTheLeft === standardTile)
+	  {
+	    validDirections.push(LEFT);
+	  }
+  }
+  if(botSpiderColumn < COLUMNS - 1)
+  {
+    var thingToTheRight = map[botSpiderRow][botSpiderColumn + 1];
+    if(thingToTheRight === standardTile)
+	  {
+	    validDirections.push(RIGHT);
+	  }
+  }
+
+  //The validDirections array now contains 0 to 4 directions that the
+  //contain WATER cells. Which of those directions will the monster
+  //choose to move in?
+
+  //If a valid direction was found, Randomly choose one of the
+  //possible directions and assign it to the direction variable
+  if(validDirections.length !== 0)
+  {
+    var randomNumber = Math.floor(Math.random() * validDirections.length);
+    direction = validDirections[randomNumber];
+  }
+
+  //Move the monster in the chosen direction
+  switch(direction)
+  {
+    case UP:
+      //Clear the monster's current cell
+		  gameObjects[botSpiderRow][botSpiderColumn] = 0;
+		  //Subtract 1 from the monster's row
+		  botSpiderRow--;
+		  //Apply the monster's new updated position to the array
+		  gameObjects[botSpiderRow][botSpiderColumn] = botSpider;
+		  break;
+
+	  case DOWN:
+	    gameObjects[botSpiderRow][botSpiderColumn] = 0;
+		  botSpiderRow++;
+		  gameObjects[botSpiderRow][botSpiderColumn] = botSpider;
+	    break;
+
+	  case LEFT:
+	    gameObjects[botSpiderRow][botSpiderColumn] = 0;
+		  botSpiderColumn--;
+		  gameObjects[botSpiderRow][botSpiderColumn] = botSpider;
+	    break;
+
+	 case RIGHT:
+	    gameObjects[botSpiderRow][botSpiderColumn] = 0;
+		  botSpiderColumn++;
+		  gameObjects[botSpiderRow][botSpiderColumn] = botSpider;
   }
 }
-//Finding out where the main hero is.   (It's off for now. will uncomment it later.)
 
-//find out what kind of cell the hero is on
-switch(map[heroRow][heroColumn])
-{
-  case standardTile:
-  console.log("Switch is working.")
-  break;
-
-  case softWall:
-
-  break;
-
-  case hardWall:
-
-  break;
-
-  case botGhost:
-
-  break;
-
-  case botSpider:
-  break;
-}
-
-
-
-render();
+// function endGame()
+// {
+//   if(map[shipRow][shipColumn] === HOME)
+//   {
+//     //Calculate the score
+//     var score = food + gold + experience;
+//
+//     //Display the game message
+//     gameMessage
+//       = "You made it home ALIVE! " + "Final Score: " + score;
+//   }
+//   else if(gameObjects[shipRow][shipColumn] === MONSTER)
+//   {
+//     gameMessage
+//       = "Your ship has been swallowed by a sea monster!";
+//   }
+//   else
+//   {
+//     //Display the game message
+//     if(gold <= 0)
+//     {
+//       gameMessage += " You've run out of gold!";
+//     }
+//     else
+//     {
+//       gameMessage += " You've run out of food!";
+//     }
+//
+//     gameMessage
+//       += " Your crew throws you overboard!";
+//   }
+//
+//   //Remove the keyboard listener to end the game
+//   window.removeEventListener("keydown", keydownHandler, false);
+// }
 
 function render()
 {
-  //Clear the stage of img tag cells from the previous turn
-  // if(stage.hasChildNodes())
-  // {
-  //   for(var i = 0; i < ROWS * COLUMNS; i++)
-  //   {
-  //     stage.removeChild(stage.firstChild);
-  //   }
-  // }
+  // Clear the stage of img cells
+  // from the previous turn
+
+  if(mapLevel1.hasChildNodes())
+  {
+    for(var i = 0; i < ROWS * COLUMNS; i++)
+    {
+      stage.removeChild(stage.firstChild);
+    }
+  }
 
   //Render the game by looping through the map arrays
-  for(var row = 0; row < ROWS;row++)
+  for(var row = 0; row < ROWS; row++)
   {
-    for(var column = 0; column < COLUMNS;column++)
+    for(var column = 0; column < COLUMNS; column++)
     {
-      //Create an img tag called cell
+      //Create a img tag called cell
       var cell = document.createElement("img");
 
-      //Set its CSS class to "cell";
-      cell.setAttribute("class","cell");
+      //Set it's CSS class to "cell"
+      cell.setAttribute("class", "cell");
 
       //Add the img tag to the <div id="stage"> tag
       stage.appendChild(cell);
@@ -310,10 +349,10 @@ function render()
         break;
       }
 
-      //Add the mainHero from the gameObjects array
-      switch(gameObjects[row][column])
-      {
-        case HERO:
+      //Add the ship and monster from the gameObjects array
+	    switch(gameObjects[row][column])
+	    {
+	      case SHIP:
         cell.src = "/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/mainHero_front_view.png";
         break;
 
@@ -321,7 +360,7 @@ function render()
         cell.src = "/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/botSpider.png";
         break;
 
-      }
+	    }
 
       //Position the cell
       cell.style.top = row * SIZE + "px";
@@ -329,7 +368,6 @@ function render()
     }
   }
 }
-
 
 
 
@@ -347,30 +385,30 @@ function render()
 //     keyisdown=false
 // }
 
-///Making the bomb.
-bombobject = {} //That is all it takes to make an object.
-// bombobject.blowtime = delay
-// bombobject.position = mapobject
-// mapobject.bomb = bombobject
-
-function placeBomb(){
-
-    // if(placebomb && hero.bombs != 0)
-    {
-        // map[heroRow][heroColumn].object = 2;
-        var bombRow = [heroRow];
-        var bombColumn = [heroColumn];
-        // placebomb = false;
-        // player.bombs--;
-        // setTimeout(explode, 3000);
-        console.log("Bomb has exploded")
-    }
-    // function explode(){
-    //     alert('BOOM!');
-    //     delete map[bombY][bombX].object;
-    //     player.bombs++;
-    // }
-}
+// ///Making the bomb.
+// bombobject = {} //That is all it takes to make an object.
+// // bombobject.blowtime = delay
+// // bombobject.position = mapobject
+// // mapobject.bomb = bombobject
+//
+// function placeBomb(){
+//
+//     // if(placebomb && hero.bombs != 0)
+//     {
+//         // map[heroRow][heroColumn].object = 2;
+//         var bombRow = [heroRow];
+//         var bombColumn = [heroColumn];
+//         // placebomb = false;
+//         // player.bombs--;
+//         // setTimeout(explode, 3000);
+//         console.log("Bomb has exploded")
+//     }
+//     // function explode(){
+//     //     alert('BOOM!');
+//     //     delete map[bombY][bombX].object;
+//     //     player.bombs++;
+//     // }
+// }
 //
 // ///Making the bomb.
 // bombobject = {} //That is all it takes to make an object.
