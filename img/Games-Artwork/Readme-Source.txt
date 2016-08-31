@@ -14,3 +14,6 @@ http://clubpenguin.wikia.com/wiki/File:Smoothie_Smash_Bomb.gif
 
 5. Fire
 http://touken-ranbu.wikia.com/wiki/File:Fire_gif.gif
+
+6. Princess
+https://www.pinterest.com/pin/489977634435313316/

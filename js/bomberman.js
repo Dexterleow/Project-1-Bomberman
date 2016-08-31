@@ -23,7 +23,7 @@ var map = [
   [0,2,1,2,0,2,1,2,0,2,0,2,0],
   [1,1,2,0,0,0,1,1,0,1,1,0,0],
   [0,2,0,2,0,2,0,2,1,2,0,2,1],
-  [1,0,0,0,1,1,1,0,2,0,1,0,0],
+  [1,0,0,0,1,1,1,0,2,0,1,0,-1],
 ];
 
 //The game objects map
@@ -60,7 +60,7 @@ var bombArray = [
 var STANDARDTILE = 0;
 var SOFTWALL = 1; //softWall
 var HARDWALL = 2; //hardWall
-var HOME = 3;
+var PRINCESS = -1;
 var MONSTER = 4;
 var HERO = 5; //Player Character
 var MONSTER_TWO = 6;
@@ -70,6 +70,7 @@ var MONSTER_FIVE = 9;
 var STANDARDTILE2 = 10;
 var BOMB = 11;
 var FIRE = 12;
+
 
 //The size of each cell
 var SIZE = 64;
@@ -214,19 +215,19 @@ function keydownHandler(event) {
   switch(map[heroRow][heroColumn])
   {
     case STANDARDTILE:
-    gameMessage = "You sail the open seas."
+    gameMessage = "Save the Princess!"
     break;
 
-    case HARDWALL:
-    // fight();
-    break;
+    // case HARDWALL:
+    // // fight();
+    // break;
+    //
+    // case SOFTWALL:
+    // // trade();
+    // break;
 
-    case SOFTWALL:
-    // trade();
-    break;
-
-    case HOME:
-    // endGame();
+    case PRINCESS:
+    endGame();
     break;
   }
 
@@ -472,7 +473,7 @@ function moveMonster() //Movement for monster.no1
     gameObjects[monsterRow][monsterColumn] = 0;
     monsterColumn++;
     gameObjects[monsterRow][monsterColumn] = MONSTER;
-    console.log("monster_one moving out");
+    //console.log("monster_one moving out");
   }
 }
 
@@ -568,7 +569,7 @@ function moveMonster_Two() //Movement for monster.no2
     gameObjects[monsterRow_Two][monsterColumn_Two] = 0;
     monsterColumn_Two++;
     gameObjects[monsterRow_Two][monsterColumn_Two] = MONSTER_TWO;
-    console.log("monster_two moving out");
+    //console.log("monster_two moving out");
   }
 }
 
@@ -663,31 +664,39 @@ function moveMonster_Three() //Movement for monster.no3
     gameObjects[monsterRow_Three][monsterColumn_Three] = 0;
     monsterColumn_Three++;
     gameObjects[monsterRow_Three][monsterColumn_Three] = MONSTER_THREE;
-    console.log("monster_three moving out");
+    //console.log("monster_three moving out");
   }
 }
+var gameMessage =""
 
-function endGame()
-{
-  // if(map[heroRow][heroColumn] === HOME)
-  // {
-  //   //Calculate the score
-  //   var score = food + gold + experience;
-  //
-  //   //Display the game message
-  //   gameMessage
-  //     = "You made it home ALIVE! " + "Final Score: " + score;
-  // }
-  // else if(gameObjects[heroRow][heroColumn] === MONSTER)
-  // {
-  //   gameMessage
-  //     = "Your hero has been swallowed by a monster!";
-  // }
-  // else
-  // {
-  //   console.log(:)
-  // }
-
+function endGame() {
+  if(map[heroRow][heroColumn] === PRINCESS)
+  {
+    //Calculate the score
+    var score = 0;
+    //Display the game message
+    gameMessage
+      = "You've saved the PRINCESS! :) " + " Final Score: " + score;
+  }
+  else if (gameObjects[heroRow][heroColumn] === MONSTER)
+  {
+    gameMessage
+      = "Your hero has been swallowed by a monster!";
+  }
+  else if (gameObjects[heroRow][heroColumn] === MONSTER_TWO)
+  {
+    gameMessage
+      = "Your hero has been swallowed by a monster!";
+  }
+  else if (gameObjects[heroRow][heroColumn] === MONSTER_THREE)
+  {
+    gameMessage
+      = "Your hero has been swallowed by a monster!";
+  }
+  else
+  {
+    console.log()
+  }
   //Remove the keyboard listener to end the game
   window.removeEventListener("keydown", keydownHandler, false);
 }
@@ -734,9 +743,9 @@ function render()
         cell.src = "/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/hardWall.png";
         break;
 
-        // case HOME:
-        //   cell.src = "../images/home.png";
-        //   break;
+        case PRINCESS:
+        cell.src = "/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/princess.png";
+        break;
       }
 
       switch(bombArray[row][column])
@@ -751,8 +760,8 @@ function render()
 
         break;
 
-        // case HOME:
-        //   cell.src = "../images/home.png";
+        // case PRINCESS: Victory Dance?
+        //   cell.src = "../images/PRINCESS.png";
         //   break;
       }
       //Add the hero and monster from the gameObjects array
@@ -765,14 +774,6 @@ function render()
 
         case HERO:
         cell.src ="/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/mainHero_front_view.png"
-
-        // var parent = document.getElementById('stage')
-        // var wrapper = document.createElement('div')
-        // wrapper.setAttribute('id', 'player')
-        //
-        // parent.replaceChild(wrapper, cell)
-        // wrapper.appendChild(cell)
-
         break;
 
         case MONSTER:
@@ -803,8 +804,8 @@ function render()
   }
 
   //Display the game message
-  // output.innerHTML = gameMessage;
-  //
+  output.innerHTML = gameMessage;
+
   // //Display the player's food, gold, and experience
   // output.innerHTML
   //   += "<br>Gold: " + gold + ", Food: "
