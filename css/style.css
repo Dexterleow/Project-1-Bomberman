@@ -8,6 +8,13 @@
   margin: auto;
 }
 
+#instructions
+{
+  width:232px;
+  height:704px;
+  float:left;
+  border-radius: 1px black;
+}
 
 .cell
 {
@@ -31,7 +38,11 @@ p
   font-size: 20px;
   width: 828px;
   height:100px;
-  padding: 10px;
   background-color: #d19e9c;
   margin:auto;
+  margin-bottom: 10px;
+}
+
+body {
+    background-color: #a7c299;
 }

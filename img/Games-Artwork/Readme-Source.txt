@@ -17,3 +17,8 @@ http://touken-ranbu.wikia.com/wiki/File:Fire_gif.gif
 
 6. Princess
 https://www.pinterest.com/pin/489977634435313316/
+http://pixels--galore.tumblr.com/post/91528069691/lips-red-as-bloodhair-black-as-nightbring-me
+httpbakugaiden.proboards
+
+7. Wallpaper background
+http://wallpaper.zone/wallpaper/2260196

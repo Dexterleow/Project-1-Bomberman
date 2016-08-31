@@ -5,23 +5,7 @@ var output = document.querySelector("#output");
 
 //Add a keyboard listener
 window.addEventListener("keydown", keydownHandler, false);
-window.setInterval(render, 500); // Render the game constantly so that it will look 'live'
-
-// window.setInterval(moveMonster,600); //Making first monster's movement to render consistently instead of keypressdown
-// window.setInterval(moveMonster_Two,600); //Making second monster's movement to render consistently instead of keypressdown
-// window.setInterval(moveMonster_Three,600); //Making third monster's movement to render consistently instead of keypressdown
-
-//Move the monster.no1
-// moveMonster();
-// //Move the monster.no2
-// moveMonster_Two();
-// //Move the monster.no3
-// moveMonster_Three();
-// //Move the monster.no4
-// moveMonster_Four();
-// //Move the monster.no5
-// moveMonster_Five();
-
+var Render = window.setInterval(render, 50); // Render the game constantly so that it will look 'live'
 
 //The game map
 var map = [
@@ -41,14 +25,14 @@ var map = [
 //The game objects map
 var gameObjects = [
   [5,0,0,0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0,7,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,4,0],
   [0,0,0,0,6,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,7,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,0,0],
 ];
@@ -133,9 +117,9 @@ for(var row = 0; row < ROWS; row++)
     }
   }
 }
-window.setInterval(moveMonster(monsterRow, monsterColumn), 600)
-window.setInterval(moveMonster(monsterRow_Two, monsterColumn_Two), 600)
-window.setInterval(moveMonster(monsterRow_Three, monsterColumn_Three), 600)
+var MonsterMove1 = window.setInterval(moveMonster(monsterRow, monsterColumn,"One"), 600) // Making first monster move
+var MonsterMove2 = window.setInterval(moveMonster(monsterRow_Two, monsterColumn_Two,"Two"), 700) // Making second monster move
+var MonsterMove3 = window.setInterval(moveMonster(monsterRow_Three, monsterColumn_Three,"Three"), 800) // Making third monster move
 
 //Arrow key codes
 var UP = 38; //Keycode for up
@@ -163,7 +147,7 @@ function keydownHandler(event) {
       // gameObjects[heroRow][heroColumn] = HERO;
 
       //If the new position is not zero. Do not allow the move
-      if (map[heroRow][heroColumn] > 0) //Compare tiles
+      if ((map[heroRow][heroColumn] > 0) || (bombArray[heroRow][heroColumn] === -2)) //Compare tiles
       {
         heroRow++;
       };
@@ -177,7 +161,7 @@ function keydownHandler(event) {
       gameObjects[heroRow][heroColumn] = 0;
       heroRow++;
 
-      if (map[heroRow][heroColumn] > 0)
+      if ((map[heroRow][heroColumn] > 0) || (bombArray[heroRow][heroColumn] === -2))
       {
         heroRow--;
       };
@@ -192,7 +176,7 @@ function keydownHandler(event) {
       gameObjects[heroRow][heroColumn] = 0;
       heroColumn--;
 
-      if (map[heroRow][heroColumn] > 0)
+      if ((map[heroRow][heroColumn] > 0) || (bombArray[heroRow][heroColumn] === -2))
       {
         heroColumn++;
       };
@@ -207,7 +191,7 @@ function keydownHandler(event) {
       gameObjects[heroRow][heroColumn] = 0;
       heroColumn++;
 
-      if (map[heroRow][heroColumn] > 0)
+      if ((map[heroRow][heroColumn] > 0)  || (bombArray[heroRow][heroColumn] === -2))
       {
         heroColumn--;
       };
@@ -225,39 +209,15 @@ function keydownHandler(event) {
     break;
   }
 
-  //find out what kind of cell the hero is on
-  switch(map[heroRow][heroColumn])
-  {
-    case STANDARDTILE:
-    gameMessage = "Save the Princess!"
-    break;
-
-    // case HARDWALL:
-    // // fight();
-    // break;
-    //
-    // case SOFTWALL:
-    // // trade();
-    // break;
-
-    case PRINCESS:
-    endGame();
-    break;
-  }
 
 
   //Find out if the hero is touching the monster
-  if(gameObjects[heroRow][heroColumn] === MONSTER)
-  {
-    endGame();
-  }
+  endGame();
+
 
   //Render the game
   render();
 }
-
-
-
 
 //Bomb
 var bombPack = 10
@@ -274,26 +234,10 @@ function placeBomb(){
     //placebomb = false;
     bombPack--;
 
-    // var myImage = new Image(56, 56);
-    // myImage.src = "/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/Smoothie_Smash_Bomb.gif";
-    // console.log(myImage);
-    // var stage = document.getElementById('stage')
-    // var player = document.getElementById('player')
-
-    //the next two lines needs further debugging
-    // player.appendChild(myImage)
-    // stage.appendChild(player)
-    //
-    //
-    // stage.appendChild(myImage)
-    // <img src="/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/Smoothie_Smash_Bomb.gif" alt="bombExploding" style="width:48px;height:48px;">
-
-    //console.log(bombRow1,bombColumn1)
     setTimeout(function() {
       explode(bombRow1,bombColumn1);
     }, 2000);
     console.log("Bomb has been triggered");
-
 
   }
 
@@ -340,14 +284,14 @@ function placeBomb(){
   function explode(bombRow1, bombColumn1){
     //alert('BOOM!');
     bombArray[bombRow1][bombColumn1] = 0;
-    console.log("Row: ", bombRow, "Col: ", bombColumn);
+    //console.log("Row: ", bombRow, "Col: ", bombColumn);
     // if (map[bombRow][++bombColumn] = '0' || map[bombRow][++bombColumn]) = '1') {
 
     //Right. < 2 as only 1 and 0 variables of softwall and standardtile can be bombed
     if ((map[bombRow1][bombColumn1 + 1] < 2) && (bombColumn1 <= COLUMNS)) {
       setTimeout(burningTileRight,0)
       setTimeout(clearBurningTileRight, 1000)
-      console.log("There's a fire");
+      //console.log("There's a fire");
       map[bombRow1][bombColumn1 + 1] = 0;
       //test bomb the spider
       gameObjects[bombRow1][bombColumn1 + 1] = 0;
@@ -358,8 +302,7 @@ function placeBomb(){
       setTimeout(burningTileCenter,0)
       setTimeout(clearBurningTileCenter, 1000)
     map[bombRow1][bombColumn1] = 0; // bombed the original bomb spot
-        //test bomb the spider
-    gameObjects[bombRow1][bombColumn1] = 0;
+
     }
 
     //Below
@@ -367,8 +310,7 @@ function placeBomb(){
       setTimeout(burningTileBelow,0)
       setTimeout(clearBurningTileBelow, 1000)
     map[bombRow1 + 1][bombColumn1] = 0; //bombed one tile below
-        //test bomb the spider
-      gameObjects[bombRow1 + 1][bombColumn1] = 0;
+
     }
 
     //Left
@@ -376,8 +318,6 @@ function placeBomb(){
       setTimeout(burningTileLeft,0)
       setTimeout(clearBurningTileLeft, 1000)
     map[bombRow1][bombColumn1 - 1] = 0;
-        //test bomb the spider
-        gameObjects[bombRow1][bombColumn1 - 1] = 0;
     }                                  //bombed the left tile
 
     //Above
@@ -386,10 +326,9 @@ function placeBomb(){
       setTimeout(clearBurningTileAbove, 1000)
     map[bombRow1 - 1][bombColumn1] = 0 ; //bombed the above tile
         //test bomb the spider
-        gameObjects[bombRow1 - 1][bombColumn1] = 0;
     }
 
-    console.log(map);
+    //console.log(map);
 
 
     bombPack++;
@@ -397,7 +336,7 @@ function placeBomb(){
   console.log("Change the softWall into standardTile")
 }
 
-function moveMonster(rowParameter, columnParameter) //Movement for monster.no1
+function moveMonster(rowParameter, columnParameter, WhichMonster) //Movement for monster.no1
 {
   return function() {
     //The 4 possible directions that the monster can move
@@ -405,11 +344,11 @@ function moveMonster(rowParameter, columnParameter) //Movement for monster.no1
     var DOWN = 2;
     var LEFT = 3;
     var RIGHT = 4;
-    
+
     //An array to store the valid direction that
     //the monster is allowed to move in
     var validDirections = [];
-
+    var KillMonster = false
     //The final direction that the monster will move in
     var direction = undefined;
 
@@ -417,10 +356,11 @@ function moveMonster(rowParameter, columnParameter) //Movement for monster.no1
     //that surround the monster. If the cells contain STANDARDTILE,
     //push the corresponding direction into the validDirections array
 
+
     if(rowParameter > 0)
     {
       var thingAbove = map[rowParameter - 1][columnParameter];
-      if(thingAbove === 0)
+      if ((thingAbove === 0) && ((gameObjects[rowParameter - 1][columnParameter] === 5) || (gameObjects[rowParameter - 1][columnParameter] === 0)))
       {
         validDirections.push(UP);
       }
@@ -428,7 +368,7 @@ function moveMonster(rowParameter, columnParameter) //Movement for monster.no1
     if(rowParameter < ROWS - 1)
     {
       var thingBelow = map[rowParameter + 1][columnParameter];
-      if(thingBelow === 0)
+      if ((thingBelow === 0) && ((gameObjects[rowParameter + 1][columnParameter] === 5) || (gameObjects[rowParameter + 1][columnParameter] === 0)))
       {
         validDirections.push(DOWN);
       }
@@ -436,7 +376,7 @@ function moveMonster(rowParameter, columnParameter) //Movement for monster.no1
     if(columnParameter > 0)
     {
       var thingToTheLeft = map[rowParameter][columnParameter - 1];
-      if(thingToTheLeft === 0)
+      if ((thingToTheLeft === 0) && ((gameObjects[rowParameter][columnParameter - 1] === 5) || (gameObjects[rowParameter][columnParameter - 1] === 0)))
       {
         validDirections.push(LEFT);
       }
@@ -444,13 +384,13 @@ function moveMonster(rowParameter, columnParameter) //Movement for monster.no1
     if(columnParameter < COLUMNS - 1)
     {
       var thingToTheRight = map[rowParameter][columnParameter + 1];
-      if(thingToTheRight === 0)
+      if ((thingToTheRight === 0)  && ((gameObjects[rowParameter][columnParameter + 1] === 5) || (gameObjects[rowParameter][columnParameter + 1] === 0)))
       {
         validDirections.push(RIGHT);
       }
     }
 
-    console.log(validDirections);
+    //console.log(validDirections);
 
     //The validDirections array now contains 0 to 4 directions that the
     //contain STANDARDTILE cells. Which of those directions will the monster
@@ -494,57 +434,136 @@ function moveMonster(rowParameter, columnParameter) //Movement for monster.no1
       gameObjects[rowParameter][columnParameter] = MONSTER;
       //console.log("monster_one moving out");
     }
-    console.log(rowParameter, columnParameter);
+    //console.log(rowParameter, columnParameter);
+
+    if (bombArray[rowParameter][columnParameter] === FIRE) {
+     //Kill monster
+     KillMonster = true
+    }
+
+    switch (WhichMonster) {
+      case "One":
+        monsterRow = rowParameter;
+        monsterColumn = columnParameter;
+
+        if (KillMonster) {
+        gameObjects[rowParameter][columnParameter] = 0;
+         clearInterval(MonsterMove1);
+        }
+
+      case "Two":
+      monsterRow_Two = rowParameter;
+      monsterColumn_Two = columnParameter;
+
+      if (KillMonster) {
+      gameObjects[rowParameter][columnParameter] = 0;
+       clearInterval(MonsterMove2);
+      }
+
+      case "Three":
+      monsterRow_Three = rowParameter;
+      monsterColumn_Three = columnParameter;
+
+      if (KillMonster) {
+      gameObjects[rowParameter][columnParameter] = 0;
+       clearInterval(MonsterMove3);
+      }
+
+    }
+
   }
 }
 
-var gameMessage =""
+var scenario = ""
+function CheckState() {
 
-function endGame() {
-  if(map[heroRow][heroColumn] === PRINCESS)
-  {
-    //Calculate the score
+  if(map[heroRow][heroColumn] === PRINCESS) {
+    scenario = "SavePrincess"
+  } else if (((heroRow === monsterRow) && (heroColumn === monsterColumn)) || ((heroRow === monsterRow_Two) && (heroColumn === monsterColumn_Two)) || ((heroRow === monsterRow_Three) && (heroColumn === monsterColumn_Three))) {
+    scenario = "KilledByMonster"
+  } else if (bombArray[heroRow][heroColumn] === FIRE) {
+    scenario = "KilledByBomb"
+  } else {
+    scenario = "GameOn"
+  }
+}
+
+
+//endGame scenario
+var gameMessage =""
+function endGame(scenario) {
+
+  var End = false;
+
+  if (scenario === "SavePrincess") {
     var score = 0;
     //Display the game message
-    gameMessage
-      = "You've saved the PRINCESS! :) " + " Final Score: " + score;
-  }
-  else if (gameObjects[heroRow][heroColumn] === MONSTER)
-  {
-    gameMessage
-      = "Your hero has been swallowed by a monster!";
-  }
-  else if (gameObjects[heroRow][heroColumn] === MONSTER_TWO)
-  {
-    gameMessage
-      = "Your hero has been swallowed by a monster!";
-  }
-  else if (gameObjects[heroRow][heroColumn] === MONSTER_THREE)
-  {
-    gameMessage
-      = "Your hero has been swallowed by a monster!";
-  }
-  else if (map[heroRow][heroColumn] === 0) //You bombed yourself. Find out if the gameobject arrary has 5
+    gameMessage = "You've saved the PRINCESS! :) " + " Final Score: " + score;
 
-  // var isHeroAlive = gameObjects.includes(5,0);
-  // console.log("Hero still alive");
-  {
-    gameMessage
-      = "You bombed and killed yourself!";
-      console.log("You're dead!");
+    End = true
+
+  } else if (scenario === "KilledByMonster")  {
+
+    gameMessage = "Your hero has been swallowed by a monster!";
+
+    End = true
+  } else if (scenario === "KilledByBomb"){
+    gameMessage = "BOOM! In your face!";
+
+    End = true
+  } else {
+
   }
-  // else if (gameObjects[princessRow][princessColumn] === 0) //You killed the princess. Find out if map array has -1
-  // {
-  //   gameMessage
-  //     = "You bombed and killed the PRINCESS! Game Over!";
-  // }
-  else
-  {
-    console.log("")
+
+  if (End) {
+    gameObjects[heroRow][heroColumn] = 0;
+    window.removeEventListener("keydown", keydownHandler, false);
+    setTimeout(function( ) { clearInterval(Render); }, 100);
   }
-  //Remove the keyboard listener to end the game
-  window.removeEventListener("keydown", keydownHandler, false);
+
 }
+
+
+
+//
+// var gameMessage =""
+//
+// function endGame() {
+//   if(map[heroRow][heroColumn] === PRINCESS)
+//   {
+//     //Calculate the score
+//     var score = 0;
+//     //Display the game message
+//     gameMessage = "You've saved the PRINCESS! :) " + " Final Score: " + score;
+//   }
+//   else if ((heroRow === monsterRow) && (heroColumn === monsterColumn))
+//   {
+//     gameMessage = "Your hero has been swallowed by a monster!";
+//     console.log(gameMessage);
+//   }
+//   else if ((heroRow === monsterRow_Two) && (heroColumn === monsterColumn_Two))
+//   {
+//     gameMessage
+//       = "Your hero has been swallowed by a monster!";
+//       console.log(gameMessage);
+//   }
+//   else if ((heroRow === monsterRow_Three) && (heroColumn === monsterColumn_Three))
+//   {
+//     gameMessage
+//       = "Your hero has been swallowed by a monster!";
+//       console.log(gameMessage);
+//   }  // else if (gameObjects[princessRow][princessColumn] === 0) //You killed the princess. Find out if map array has -1
+//   // {
+//   //   gameMessage
+//   //     = "You bombed and killed the PRINCESS! Game Over!";
+//   // }
+//   else
+//   {
+//     console.log("")
+//   }
+//   //Remove the keyboard listener to end the game
+//   window.removeEventListener("keydown", keydownHandler, false);
+// }
 
 function render()
 {
@@ -589,7 +608,7 @@ function render()
         break;
 
         case PRINCESS:
-        cell.src = "/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/princess.png";
+        cell.src = "/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/httpbakugaiden.proboards.png";
         break;
       }
 
@@ -618,7 +637,7 @@ function render()
         break;
 
         case HERO:
-        cell.src ="/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/mainHero_front_view.png"
+        cell.src ="/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/bomberman.gif"
         break;
 
         case MONSTER:
@@ -647,6 +666,9 @@ function render()
       cell.style.left = column * SIZE + "px";
     }
   }
+
+  CheckState();
+  endGame(scenario);
 
   //Display the game message
   output.innerHTML = gameMessage;
