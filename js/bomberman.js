@@ -5,7 +5,11 @@ var output = document.querySelector("#output");
 
 //Add a keyboard listener
 window.addEventListener("keydown", keydownHandler, false);
-window.setInterval(render, 500);
+window.setInterval(render, 500); // Render the game constantly so that it will look 'live'
+window.setInterval(moveMonster,500); //Making first monster's movement to render consistently instead of keypressdown
+window.setInterval(moveMonster_Two,500); //Making second monster's movement to render consistently instead of keypressdown
+window.setInterval(moveMonster_Three,500); //Making third monster's movement to render consistently instead of keypressdown
+
 
 //The game map
 var map = [
@@ -65,7 +69,7 @@ var MONSTER_FOUR = 8;
 var MONSTER_FIVE = 9;
 var STANDARDTILE2 = 10;
 var BOMB = 11;
-var Fire = 12;
+var FIRE = 12;
 
 //The size of each cell
 var SIZE = 64;
@@ -247,6 +251,9 @@ function keydownHandler(event) {
   render();
 }
 
+
+
+
 //Bomb
 var bombPack = 10
 // number of bombs
@@ -288,6 +295,16 @@ function placeBomb(){
     bombArray[bombRow1][bombColumn1] = 0;
     console.log("Row: ", bombRow, "Col: ", bombColumn);
     // if (map[bombRow][++bombColumn] = '0' || map[bombRow][++bombColumn]) = '1') {
+
+
+    setTimeout(function() {
+    fire(bombRow1,bombColumn1);
+    }, 2000);
+    console.log("Fire in the Hole");
+    //
+    bombArray[bombRow1][bombColumn1] = 12;
+
+
 
     //Right
     if ((map[bombRow1][bombColumn1 + 1] < 2) && (bombColumn1 <= COLUMNS)) {
@@ -686,6 +703,12 @@ function render()
         cell.src ="/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/Smoothie_Smash_Bomb.gif";
 
         break;
+
+        case FIRE:
+        cell.src ="/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/Fire_gif.gif";
+
+        break;
+
         // case HOME:
         //   cell.src = "../images/home.png";
         //   break;

@@ -11,3 +11,6 @@ gamefroot.com/blog/tag/free/
 
 4. Bomb. 
 http://clubpenguin.wikia.com/wiki/File:Smoothie_Smash_Bomb.gif
+
+5. Fire
+http://touken-ranbu.wikia.com/wiki/File:Fire_gif.gif
