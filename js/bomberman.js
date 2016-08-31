@@ -6,7 +6,8 @@ var output = document.querySelector("#output");
 //Add a keyboard listener
 window.addEventListener("keydown", keydownHandler, false);
 window.setInterval(render, 500); // Render the game constantly so that it will look 'live'
-window.setInterval(moveMonster,600); //Making first monster's movement to render consistently instead of keypressdown
+
+// window.setInterval(moveMonster,600); //Making first monster's movement to render consistently instead of keypressdown
 // window.setInterval(moveMonster_Two,600); //Making second monster's movement to render consistently instead of keypressdown
 // window.setInterval(moveMonster_Three,600); //Making third monster's movement to render consistently instead of keypressdown
 
@@ -132,7 +133,9 @@ for(var row = 0; row < ROWS; row++)
     }
   }
 }
-
+window.setInterval(moveMonster(monsterRow, monsterColumn), 600)
+window.setInterval(moveMonster(monsterRow_Two, monsterColumn_Two), 600)
+window.setInterval(moveMonster(monsterRow_Three, monsterColumn_Three), 600)
 
 //Arrow key codes
 var UP = 38; //Keycode for up
@@ -394,292 +397,107 @@ function placeBomb(){
   console.log("Change the softWall into standardTile")
 }
 
-function moveMonster() //Movement for monster.no1
+function moveMonster(rowParameter, columnParameter) //Movement for monster.no1
 {
-  //The 4 possible directions that the monster can move
-  var UP = 1;
-  var DOWN = 2;
-  var LEFT = 3;
-  var RIGHT = 4;
+  return function() {
+    //The 4 possible directions that the monster can move
+    var UP = 1;
+    var DOWN = 2;
+    var LEFT = 3;
+    var RIGHT = 4;
+    
+    //An array to store the valid direction that
+    //the monster is allowed to move in
+    var validDirections = [];
 
-  //An array to store the valid direction that
-  //the monster is allowed to move in
-  var validDirections = [];
+    //The final direction that the monster will move in
+    var direction = undefined;
 
-  //The final direction that the monster will move in
-  var direction = undefined;
+    //Find out what kinds of things are in the cells
+    //that surround the monster. If the cells contain STANDARDTILE,
+    //push the corresponding direction into the validDirections array
 
-  //Find out what kinds of things are in the cells
-  //that surround the monster. If the cells contain STANDARDTILE,
-  //push the corresponding direction into the validDirections array
-
-  if(monsterRow > 0)
-  {
-    var thingAbove = map[monsterRow - 1][monsterColumn];
-    if(thingAbove === 0)
+    if(rowParameter > 0)
     {
-      validDirections.push(UP);
+      var thingAbove = map[rowParameter - 1][columnParameter];
+      if(thingAbove === 0)
+      {
+        validDirections.push(UP);
+      }
     }
-  }
-  if(monsterRow < ROWS - 1)
-  {
-    var thingBelow = map[monsterRow + 1][monsterColumn];
-    if(thingBelow === 0)
+    if(rowParameter < ROWS - 1)
     {
-      validDirections.push(DOWN);
+      var thingBelow = map[rowParameter + 1][columnParameter];
+      if(thingBelow === 0)
+      {
+        validDirections.push(DOWN);
+      }
     }
-  }
-  if(monsterColumn > 0)
-  {
-    var thingToTheLeft = map[monsterRow][monsterColumn - 1];
-    if(thingToTheLeft === 0)
+    if(columnParameter > 0)
     {
-      validDirections.push(LEFT);
+      var thingToTheLeft = map[rowParameter][columnParameter - 1];
+      if(thingToTheLeft === 0)
+      {
+        validDirections.push(LEFT);
+      }
     }
-  }
-  if(monsterColumn < COLUMNS - 1)
-  {
-    var thingToTheRight = map[monsterRow][monsterColumn + 1];
-    if(thingToTheRight === 0)
+    if(columnParameter < COLUMNS - 1)
     {
-      validDirections.push(RIGHT);
+      var thingToTheRight = map[rowParameter][columnParameter + 1];
+      if(thingToTheRight === 0)
+      {
+        validDirections.push(RIGHT);
+      }
     }
-  }
 
-  //The validDirections array now contains 0 to 4 directions that the
-  //contain STANDARDTILE cells. Which of those directions will the monster
-  //choose to move in?
+    console.log(validDirections);
 
-  //If a valid direction was found, Randomly choose one of the
-  //possible directions and assign it to the direction variable
-  if(validDirections.length !== 0)
-  {
-    var randomNumber = Math.floor(Math.random() * validDirections.length);
-    direction = validDirections[randomNumber];
-  }
+    //The validDirections array now contains 0 to 4 directions that the
+    //contain STANDARDTILE cells. Which of those directions will the monster
+    //choose to move in?
 
-  //Move the monster in the chosen direction
-  switch(direction)
-  {
-    case UP:
-    //Clear the monster's current cell
-    gameObjects[monsterRow][monsterColumn] = 0;
-    //Subtract 1 from the monster's row
-    monsterRow--;
-    //Apply the monster's new updated position to the array
-    gameObjects[monsterRow][monsterColumn] = MONSTER;
-    break;
+    //If a valid direction was found, Randomly choose one of the
+    //possible directions and assign it to the direction variable
+    if(validDirections.length !== 0)
+    {
+      var randomNumber = Math.floor(Math.random() * validDirections.length);
+      direction = validDirections[randomNumber];
+    }
 
-    case DOWN:
-    gameObjects[monsterRow][monsterColumn] = 0;
-    monsterRow++;
-    gameObjects[monsterRow][monsterColumn] = MONSTER;
-    break;
+    //Move the monster in the chosen direction
+    switch(direction)
+    {
+      case UP:
+      //Clear the monster's current cell
+      gameObjects[rowParameter][columnParameter] = 0;
+      //Subtract 1 from the monster's row
+      rowParameter--;
+      //Apply the monster's new updated position to the array
+      gameObjects[rowParameter][columnParameter] = MONSTER;
+      break;
 
-    case LEFT:
-    gameObjects[monsterRow][monsterColumn] = 0;
-    monsterColumn--;
-    gameObjects[monsterRow][monsterColumn] = MONSTER;
-    break;
+      case DOWN:
+      gameObjects[rowParameter][columnParameter] = 0;
+      rowParameter++;
+      gameObjects[rowParameter][columnParameter] = MONSTER;
+      break;
 
-    case RIGHT:
-    gameObjects[monsterRow][monsterColumn] = 0;
-    monsterColumn++;
-    gameObjects[monsterRow][monsterColumn] = MONSTER;
-    //console.log("monster_one moving out");
+      case LEFT:
+      gameObjects[rowParameter][columnParameter] = 0;
+      columnParameter--;
+      gameObjects[rowParameter][columnParameter] = MONSTER;
+      break;
+
+      case RIGHT:
+      gameObjects[rowParameter][columnParameter] = 0;
+      columnParameter++;
+      gameObjects[rowParameter][columnParameter] = MONSTER;
+      //console.log("monster_one moving out");
+    }
+    console.log(rowParameter, columnParameter);
   }
 }
 
-
-function moveMonster_Two() //Movement for monster.no2
-{
-  //The 4 possible directions that the monster can move
-  var UP = 1;
-  var DOWN = 2;
-  var LEFT = 3;
-  var RIGHT = 4;
-
-  //An array to store the valid direction that
-  //the monster is allowed to move in
-  var validDirections = [];
-
-  //The final direction that the monster will move in
-  var direction = undefined;
-
-  //Find out what kinds of things are in the cells
-  //that surround the monster. If the cells contain STANDARDTILE,
-  //push the corresponding direction into the validDirections array
-  if(monsterRow_Two > 0)
-  {
-    var thingAbove = map[monsterRow_Two - 1][monsterColumn_Two];
-    if(thingAbove === 0); // change this from standardtile to 0 or 1
-    {
-      validDirections.push(UP);
-    }
-  }
-  if(monsterRow_Two < ROWS - 1)
-  {
-    var thingBelow = map[monsterRow_Two + 1][monsterColumn_Two];
-    if(thingBelow === 0) // change this from standardtile to 0 or 1
-    {
-      validDirections.push(DOWN);
-    }
-  }
-  if(monsterColumn_Two > 0)
-  {
-    var thingToTheLeft = map[monsterRow_Two][monsterColumn_Two - 1];
-    if(thingToTheLeft === 0) // change this from standardtile to 0 or 1
-    {
-      validDirections.push(LEFT);
-    }
-  }
-  if(monsterColumn_Two < COLUMNS - 1)
-  {
-    var thingToTheRight = map[monsterRow_Two][monsterColumn_Two + 1];
-    if(thingToTheRight === 0) // change this from standardtile to 0 or 1
-    {
-      validDirections.push(RIGHT);
-    }
-  }
-
-  //The validDirections array now contains 0 to 4 directions that the
-  //contain STANDARDTILE cells. Which of those directions will the monster
-  //choose to move in?
-
-  //If a valid direction was found, Randomly choose one of the
-  //possible directions and assign it to the direction variable
-  if(validDirections.length !== 0)
-  {
-    var randomNumber = Math.floor(Math.random() * validDirections.length);
-    direction = validDirections[randomNumber];
-  }
-
-  //Move the monster in the chosen direction
-  switch(direction)
-  {
-    case UP:
-    //Clear the monster's current cell
-    gameObjects[monsterRow_Two][monsterColumn_Two] = 0;
-    //Subtract 1 from the monster's row
-    monsterRow_Two--;
-    //Apply the monster's new updated position to the array
-    gameObjects[monsterRow_Two][monsterColumn_Two] = MONSTER_TWO;
-    break;
-
-    case DOWN:
-    gameObjects[monsterRow_Two][monsterColumn_Two] = 0;
-    monsterRow_Two++;
-    gameObjects[monsterRow_Two][monsterColumn_Two] = MONSTER_TWO;
-    break;
-
-    case LEFT:
-    gameObjects[monsterRow_Two][monsterColumn_Two] = 0;
-    monsterColumn_Two--;
-    gameObjects[monsterRow_Two][monsterColumn_Two] = MONSTER_TWO;
-    break;
-
-    case RIGHT:
-    gameObjects[monsterRow_Two][monsterColumn_Two] = 0;
-    monsterColumn_Two++;
-    gameObjects[monsterRow_Two][monsterColumn_Two] = MONSTER_TWO;
-    //console.log("monster_two moving out");
-  }
-}
-
-function moveMonster_Three() //Movement for monster.no3
-{
-  //The 4 possible directions that the monster can move
-  var UP = 1;
-  var DOWN = 2;
-  var LEFT = 3;
-  var RIGHT = 4;
-
-  //An array to store the valid direction that
-  //the monster is allowed to move in
-  var validDirections = [];
-
-  //The final direction that the monster will move in
-  var direction = undefined;
-
-  //Find out what kinds of things are in the cells
-  //that surround the monster. If the cells contain STANDARDTILE,
-  //push the corresponding direction into the validDirections array
-  if(monsterRow_Three > 0)
-  {
-    var thingAbove = map[monsterRow_Three - 1][monsterColumn_Three];
-    if(thingAbove === 0);
-    {
-      validDirections.push(UP);
-    }
-  }
-  if(monsterRow_Three < ROWS - 1)
-  {
-    var thingBelow = map[monsterRow_Three + 1][monsterColumn_Three];
-    if(thingBelow === 0)
-    {
-      validDirections.push(DOWN);
-    }
-  }
-  if(monsterColumn_Three > 0)
-  {
-    var thingToTheLeft = map[monsterRow_Three][monsterColumn_Three - 1];
-    if(thingToTheLeft === 0)
-    {
-      validDirections.push(LEFT);
-    }
-  }
-  if(monsterColumn_Three < COLUMNS - 1)
-  {
-    var thingToTheRight = map[monsterRow_Three][monsterColumn_Three + 1];
-    if(thingToTheRight === 0)
-    {
-      validDirections.push(RIGHT);
-    }
-  }
-
-  //The validDirections array now contains 0 to 4 directions that the
-  //contain STANDARDTILE cells. Which of those directions will the monster
-  //choose to move in?
-
-  //If a valid direction was found, Randomly choose one of the
-  //possible directions and assign it to the direction variable
-  if(validDirections.length !== 0)
-  {
-    var randomNumber = Math.floor(Math.random() * validDirections.length);
-    direction = validDirections[randomNumber];
-  }
-
-  //Move the monster in the chosen direction
-  switch(direction)
-  {
-    case UP:
-    //Clear the monster's current cell
-    gameObjects[monsterRow_Three][monsterColumn_Three] = 0;
-    //Subtract 1 from the monster's row
-    monsterRow_Three--;
-    //Apply the monster's new updated position to the array
-    gameObjects[monsterRow_Three][monsterColumn_Three] = MONSTER_THREE;
-    break;
-
-    case DOWN:
-    gameObjects[monsterRow_Three][monsterColumn_Three] = 0;
-    monsterRow_Three++;
-    gameObjects[monsterRow_Three][monsterColumn_Three] = MONSTER_THREE;
-    break;
-
-    case LEFT:
-    gameObjects[monsterRow_Three][monsterColumn_Three] = 0;
-    monsterColumn_Three--;
-    gameObjects[monsterRow_Three][monsterColumn_Three] = MONSTER_THREE;
-    break;
-
-    case RIGHT:
-    gameObjects[monsterRow_Three][monsterColumn_Three] = 0;
-    monsterColumn_Three++;
-    gameObjects[monsterRow_Three][monsterColumn_Three] = MONSTER_THREE;
-    //console.log("monster_three moving out");
-  }
-}
 var gameMessage =""
 
 function endGame() {
