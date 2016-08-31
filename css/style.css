@@ -1,4 +1,3 @@
-
 #stage
 {
   position:relative;
@@ -6,15 +5,9 @@
   height:704px;
   background-image: url("../img/Games-Artwork/background.jpg");
   margin: auto;
+  margin-top: 20px;
 }
 
-#instructions
-{
-  width:232px;
-  height:704px;
-  float:left;
-  border-radius: 1px black;
-}
 
 .cell
 {
@@ -24,23 +17,24 @@
   height: 64px;
 }
 
-h1
+/*h1
 {
   text-align: center;
   font-family: Arial;
   font-size: 50px;
-  background-color: #d19e9c;
-}
+  background-color: #f27e05;
+}*/
 
 p
 {
   font-family: Arial;
-  font-size: 20px;
+  font-size: 30px;
   width: 828px;
   height:100px;
-  background-color: #d19e9c;
+  padding: 10px;
+  background-color: #f27e05;
   margin:auto;
-  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 body {
