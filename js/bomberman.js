@@ -7,8 +7,19 @@ var output = document.querySelector("#output");
 window.addEventListener("keydown", keydownHandler, false);
 window.setInterval(render, 500); // Render the game constantly so that it will look 'live'
 window.setInterval(moveMonster,600); //Making first monster's movement to render consistently instead of keypressdown
-window.setInterval(moveMonster_Two,600); //Making second monster's movement to render consistently instead of keypressdown
-window.setInterval(moveMonster_Three,600); //Making third monster's movement to render consistently instead of keypressdown
+// window.setInterval(moveMonster_Two,600); //Making second monster's movement to render consistently instead of keypressdown
+// window.setInterval(moveMonster_Three,600); //Making third monster's movement to render consistently instead of keypressdown
+
+//Move the monster.no1
+// moveMonster();
+// //Move the monster.no2
+// moveMonster_Two();
+// //Move the monster.no3
+// moveMonster_Three();
+// //Move the monster.no4
+// moveMonster_Four();
+// //Move the monster.no5
+// moveMonster_Five();
 
 
 //The game map
@@ -68,7 +79,7 @@ var MONSTER_THREE = 7;
 var MONSTER_FOUR = 8;
 var MONSTER_FIVE = 9;
 var STANDARDTILE2 = 10;
-var BOMB = 11;
+var BOMB = -2;
 var FIRE = 12;
 
 
@@ -231,16 +242,6 @@ function keydownHandler(event) {
     break;
   }
 
-  //Move the monster.no1
-  moveMonster();
-  //Move the monster.no2
-  moveMonster_Two();
-  //Move the monster.no3
-  moveMonster_Three();
-  // //Move the monster.no4
-  // moveMonster_Four();
-  // //Move the monster.no5
-  // moveMonster_Five();
 
   //Find out if the hero is touching the monster
   if(gameObjects[heroRow][heroColumn] === MONSTER)
@@ -265,7 +266,8 @@ function placeBomb(){
     var bombRow1 = heroRow;
     var bombColumn1 = heroColumn;
 
-    bombArray[bombRow1][bombColumn1] = 11;
+    bombArray[bombRow1][bombColumn1] = -2;
+    map[bombRow1][bombColumn1] = -2;
     //placebomb = false;
     bombPack--;
 
@@ -344,6 +346,8 @@ function placeBomb(){
       setTimeout(clearBurningTileRight, 1000)
       console.log("There's a fire");
       map[bombRow1][bombColumn1 + 1] = 0;
+      //test bomb the spider
+      gameObjects[bombRow1][bombColumn1 + 1] = 0;
     }
 
     //Useless, player cannot move to non-movable tiles
@@ -351,6 +355,8 @@ function placeBomb(){
       setTimeout(burningTileCenter,0)
       setTimeout(clearBurningTileCenter, 1000)
     map[bombRow1][bombColumn1] = 0; // bombed the original bomb spot
+        //test bomb the spider
+    gameObjects[bombRow1][bombColumn1] = 0;
     }
 
     //Below
@@ -358,6 +364,8 @@ function placeBomb(){
       setTimeout(burningTileBelow,0)
       setTimeout(clearBurningTileBelow, 1000)
     map[bombRow1 + 1][bombColumn1] = 0; //bombed one tile below
+        //test bomb the spider
+      gameObjects[bombRow1 + 1][bombColumn1] = 0;
     }
 
     //Left
@@ -365,6 +373,8 @@ function placeBomb(){
       setTimeout(burningTileLeft,0)
       setTimeout(clearBurningTileLeft, 1000)
     map[bombRow1][bombColumn1 - 1] = 0;
+        //test bomb the spider
+        gameObjects[bombRow1][bombColumn1 - 1] = 0;
     }                                  //bombed the left tile
 
     //Above
@@ -372,6 +382,8 @@ function placeBomb(){
       setTimeout(burningTileAbove,0)
       setTimeout(clearBurningTileAbove, 1000)
     map[bombRow1 - 1][bombColumn1] = 0 ; //bombed the above tile
+        //test bomb the spider
+        gameObjects[bombRow1 - 1][bombColumn1] = 0;
     }
 
     console.log(map);
@@ -400,6 +412,7 @@ function moveMonster() //Movement for monster.no1
   //Find out what kinds of things are in the cells
   //that surround the monster. If the cells contain STANDARDTILE,
   //push the corresponding direction into the validDirections array
+
   if(monsterRow > 0)
   {
     var thingAbove = map[monsterRow - 1][monsterColumn];
@@ -693,9 +706,23 @@ function endGame() {
     gameMessage
       = "Your hero has been swallowed by a monster!";
   }
+  else if (map[heroRow][heroColumn] === 0) //You bombed yourself. Find out if the gameobject arrary has 5
+
+  // var isHeroAlive = gameObjects.includes(5,0);
+  // console.log("Hero still alive");
+  {
+    gameMessage
+      = "You bombed and killed yourself!";
+      console.log("You're dead!");
+  }
+  // else if (gameObjects[princessRow][princessColumn] === 0) //You killed the princess. Find out if map array has -1
+  // {
+  //   gameMessage
+  //     = "You bombed and killed the PRINCESS! Game Over!";
+  // }
   else
   {
-    console.log()
+    console.log("")
   }
   //Remove the keyboard listener to end the game
   window.removeEventListener("keydown", keydownHandler, false);
