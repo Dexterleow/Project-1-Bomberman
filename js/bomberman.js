@@ -6,9 +6,9 @@ var output = document.querySelector("#output");
 //Add a keyboard listener
 window.addEventListener("keydown", keydownHandler, false);
 window.setInterval(render, 500); // Render the game constantly so that it will look 'live'
-window.setInterval(moveMonster,500); //Making first monster's movement to render consistently instead of keypressdown
-window.setInterval(moveMonster_Two,500); //Making second monster's movement to render consistently instead of keypressdown
-window.setInterval(moveMonster_Three,500); //Making third monster's movement to render consistently instead of keypressdown
+window.setInterval(moveMonster,600); //Making first monster's movement to render consistently instead of keypressdown
+window.setInterval(moveMonster_Two,600); //Making second monster's movement to render consistently instead of keypressdown
+window.setInterval(moveMonster_Three,600); //Making third monster's movement to render consistently instead of keypressdown
 
 
 //The game map
@@ -290,44 +290,86 @@ function placeBomb(){
 
 
   }
+
+  function burningTileRight(){
+    bombArray[bombRow1][bombColumn1 + 1] = 12
+  }
+
+  function clearBurningTileRight() {
+    bombArray[bombRow1][bombColumn1 + 1] = 0
+  }
+
+  function burningTileCenter(){
+    bombArray[bombRow1][bombColumn1] = 12
+  }
+
+  function clearBurningTileCenter() {
+    bombArray[bombRow1][bombColumn1] = 0
+  }
+
+  function burningTileBelow(){
+    bombArray[bombRow1 + 1][bombColumn1] = 12
+  }
+
+  function clearBurningTileBelow() {
+    bombArray[bombRow1 + 1][bombColumn1] = 0
+  }
+
+  function burningTileLeft(){
+    bombArray[bombRow1][bombColumn1 - 1] = 12
+  }
+
+  function clearBurningTileLeft() {
+    bombArray[bombRow1][bombColumn1 - 1] = 0
+  }
+
+  function burningTileAbove(){
+    bombArray[bombRow1 - 1][bombColumn1] = 12
+  }
+
+  function clearBurningTileAbove() {
+    bombArray[bombRow1 - 1][bombColumn1] = 0
+  }
+
   function explode(bombRow1, bombColumn1){
     //alert('BOOM!');
     bombArray[bombRow1][bombColumn1] = 0;
     console.log("Row: ", bombRow, "Col: ", bombColumn);
     // if (map[bombRow][++bombColumn] = '0' || map[bombRow][++bombColumn]) = '1') {
 
-
-    setTimeout(function() {
-    fire(bombRow1,bombColumn1);
-    }, 2000);
-    console.log("Fire in the Hole");
-    //
-    bombArray[bombRow1][bombColumn1] = 12;
-
-
-
-    //Right
+    //Right. < 2 as only 1 and 0 variables of softwall and standardtile can be bombed
     if ((map[bombRow1][bombColumn1 + 1] < 2) && (bombColumn1 <= COLUMNS)) {
+      setTimeout(burningTileRight,0)
+      setTimeout(clearBurningTileRight, 1000)
+      console.log("There's a fire");
       map[bombRow1][bombColumn1 + 1] = 0;
     }
 
     //Useless, player cannot move to non-movable tiles
     if (map[bombRow1][bombColumn1] < 2) {
+      setTimeout(burningTileCenter,0)
+      setTimeout(clearBurningTileCenter, 1000)
     map[bombRow1][bombColumn1] = 0; // bombed the original bomb spot
     }
 
     //Below
     if ((map[bombRow1 + 1][bombColumn1]  < 2) && (bombRow1 <= ROWS)) {
+      setTimeout(burningTileBelow,0)
+      setTimeout(clearBurningTileBelow, 1000)
     map[bombRow1 + 1][bombColumn1] = 0; //bombed one tile below
     }
 
     //Left
     if ((map[bombRow1][bombColumn1 - 1] < 2) && (bombColumn1 >= 0)) {
+      setTimeout(burningTileLeft,0)
+      setTimeout(clearBurningTileLeft, 1000)
     map[bombRow1][bombColumn1 - 1] = 0;
     }                                  //bombed the left tile
 
     //Above
     if ((map[bombRow1 - 1][bombColumn1] < 2) &&  (bombRow1 >= 0)) {
+      setTimeout(burningTileAbove,0)
+      setTimeout(clearBurningTileAbove, 1000)
     map[bombRow1 - 1][bombColumn1] = 0 ; //bombed the above tile
     }
 
