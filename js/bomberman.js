@@ -6,14 +6,12 @@ var gamescore = document.getElementById("gamescore");
 var bombermanLife = document.getElementById("bomberLife");
 console.log(output);
 
-
 //Add a keyboard listener
 window.addEventListener("keydown", keydownHandler, false);
 var Render = window.setInterval(render, 50); // Render the game constantly
 
-
 function restart() {
-    document.location.href="";
+  document.location.href="";
 }
 
 //The game map
@@ -45,8 +43,8 @@ var gameObjects = [
   [0,0,0,0,0,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,0,0],
 ];
-// change 0 to softWall and hardwall for the object to stop bumping into it.
 
+//Bomb map
 var bombArray = [
   [0,0,0,0,0,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -162,7 +160,7 @@ function keydownHandler(event) {
         heroRow++;
       };
       gameObjects[heroRow][heroColumn] = HERO;
-        bomberMoveSounds.play();
+      bomberMoveSounds.play();
     }
     break;
 
@@ -258,7 +256,6 @@ function placeBomb(){
     bombArray[bombRow1][bombColumn1 + 1] = 12
   }
 
-
   function clearBurningTileRight() {
     bombArray[bombRow1][bombColumn1 + 1] = 0
   }
@@ -342,7 +339,6 @@ function placeBomb(){
       map[bombRow1 - 1][bombColumn1] = 0 ; //bombed the above tile
       //test bomb the spider
     }
-
 
     bombPack++;
   }
@@ -561,11 +557,11 @@ function endGame(scenario) {
 
   if (End) {
 
-    if (scenario === "KilledByMonster") {
-    gameObjects[heroRow][heroColumn] = 4
-  } else {
-    gameObjects[heroRow][heroColumn] = 0
-  }
+    if (scenario === "KilledByMonster") { //To display the spider tile correctly after it has killed the human
+      gameObjects[heroRow][heroColumn] = 4
+    } else {
+      gameObjects[heroRow][heroColumn] = 0
+    }
     window.removeEventListener("keydown", keydownHandler, false);
     setTimeout(function( ) { clearInterval(Render); }, 50);
   }
@@ -676,7 +672,6 @@ function render()
   bomberLife.innerHTML = bombermanLife;
 
 }
-
 
 //Sound Effects
 var gameStartSound = document.getElementById("bombermanStartingSound");

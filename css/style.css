@@ -4,7 +4,7 @@
   src: url(/Users/dexterleow/Desktop/Project-1-Bomberman/fonts/press-start/prstart.ttf);
 }
 
-#bomberman-picture1{
+#bomberman-picture1 {
   position: absolute;
   width: 240px;
   height:228px;
@@ -13,7 +13,7 @@
   margin-left: 5px;
 }
 
-#bomberLife{
+#bomberLife {
   color:white;
   font-size:40px;
   vertical-align: bottom;
@@ -31,8 +31,7 @@
   padding-top: 5px;
 }
 
-#bomberman-face1
-{
+#bomberman-face1 {
   height:56px;
   width: 56px;
   margin-top:10px;
@@ -51,9 +50,7 @@
 
 #right-column {
   display: inline-block;
-  /*position: relative;*/
   clear:left;
-  /*float: right;*/
   overflow:hidden;
   font-size: 24px;
   font-family: 'Slabo 27px', serif;
@@ -67,7 +64,7 @@
   margin-left: 20px;
 }
 
-#game{
+#game {
   display: inline-block;
   clear:left;
   /*float:right;*/
@@ -94,8 +91,7 @@
   margin-left: 20px;
 }
 
-#gameboard
-{
+#gameboard {
   text-align: center;
   font-family: BombermanFont;
   /*src: url(/Users/dexterleow/Desktop/Project-1-Bomberman/fonts/ufonts.com_bomberman.ttf);*/
@@ -109,8 +105,7 @@
   float:left;
 }
 
-#stage
-{
+#stage {
   position:relative;
   width:832px;
   height:704px;
@@ -120,8 +115,7 @@
   float: left;
 }
 
-.cell
-{
+.cell {
   display: block;
   position: absolute;
   width: 64px;
@@ -138,13 +132,7 @@
   background-color: lightgrey;
 }
 
-
-/*#game-score span{
-position:absolute;
-bottom:0;
-}*/
-
-#gamescore{
+#gamescore {
   color:white;
   font-size:30px;
   vertical-align: middle;
@@ -158,8 +146,7 @@ bottom:0;
   border: 5px solid red;
 }
 
-#output
-{
+#output {
   color:white;
   vertical-align: middle;
   line-height: 90px;
@@ -168,36 +155,32 @@ bottom:0;
   font-size: 18px;
   width: 380px !important;
   height:70px;
-  /*padding: 10px;*/
-  /*background-color: #f27e05;*/
-  /*margin:auto;*/
   margin-top: 10px;
   margin-right: 5px;
   margin-left: 5px;
   border: 5px solid red;
   z-index: 2;
-  /*position: absolute */
   background-color: black;
 }
 
-#gamePoster{
+#gamePoster {
   width:245px;
   height: 450px;
 }
 
-#gameMode{
+#gameMode {
   text-align: center;
 }
 
 #resetButton {
-    background-color: #4CAF50; /* Green */
-    border: 2px solid black;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
+  background-color: #4CAF50; /* Green */
+  border: 2px solid black;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 }
 
 body {

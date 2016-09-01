@@ -3,7 +3,6 @@
 <head>
   <meta charset="utf-8">
   <title>Special Bomberman</title>
-  <script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
   <link href="css/style.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
 </head>
@@ -17,22 +16,18 @@
       <p>Save the Princess! </p>
       <img id ="bomberman-picture1" src="img/Games-Artwork/bomberman_b_daman__by_invader_kai.png" alt="bomberman-picture1">
     </div>
-    <section id="game"> <!-- right-column.middle -->
-      <!-- <h1>Super Bomberman Remake</h1> -->
+    <section id="game"> <!-- middle-Column -->
       <div id="gameboard">
         <div class="b" id="bomberman-life">
           <div id ="bomberman-face">
             <img id ="bomberman-face1" src="img/Games-Artwork/bomberman_life.jpg" alt="Bomberman face">
           </div>
-          <div id="bomberLife">
-
+          <div id="bomberLife"> <!-- Display number of life left for bomberman-->
           </div>
         </div>
-        <div class="b" id="gamescore">
-
+        <div class="b" id="gamescore"> <!-- Display the score-->
         </div>
-        <!-- <div class="b" id="clock"></div> -->
-        <p class="b" id="output"></p>        <!-- giving out the score-->
+        <p class="b" id="output"></p> <!-- Display the game message-->
       </div>
       <div id="stage"></div>
     </section>
@@ -42,32 +37,19 @@
         <p><b>Mode:</b> Single Player</p>
         <p><b>Platform:</b> Desktop</p>
         <p><b>Dates:</b> 2016 August</p>
-
         <button id="resetButton" onclick="restart()">Reset Game</button>
-
       </div>
     </div>
-
-
-
-    <!--
-    An audio tag without "controls" will be invisible.
-    Adding the "autoplay" attribute will make the audio start automatically.
-    Adding the "loop" attribute will make the audio play forever.
-  -->
-  <audio id="bombermanStartingSound" src="sounds/BombermanStartingSound.wav"></audio>
-  <!-- <audio id="background" autoplay loop src="sounds/05-level-2 (1).mp3"></audio> -->
-
-  <audio id="bombermanMovementSounds" src="sounds/PLAYER_WALK.wav"></audio>
-  <audio id="plantBombSounds" src="sounds/BOM_SET.wav"></audio>
-  <audio id="explodedBombSounds" src="sounds/ExplodedBomb.wav"></audio>
-  <audio id="winSounds" src="sounds/VictorySong.mp3"></audio>
-  <audio id="gameOverSounds" src="sounds/Game-over.mp3"></audio>
-  <audio id="spiderDie" src="sounds/SpiderDie.wav"></audio>
-
-  <!-- not done with the sounds -->
-  <!-- The real music of Bomberman -->
-</div>
-<script src="js/bomberman.js"></script>
+    <!-- The real music of Bomberman -->
+    <audio id="background" autoplay loop src="sounds/backgroundMusic.mp3"></audio>
+    <audio id="bombermanStartingSound" src="sounds/BombermanStartingSound.wav"></audio>
+    <audio id="bombermanMovementSounds" src="sounds/PLAYER_WALK.wav"></audio>
+    <audio id="plantBombSounds" src="sounds/BOM_SET.wav"></audio>
+    <audio id="explodedBombSounds" src="sounds/ExplodedBomb.wav"></audio>
+    <audio id="winSounds" src="sounds/VictorySong.mp3"></audio>
+    <audio id="gameOverSounds" src="sounds/Game-over.mp3"></audio>
+    <audio id="spiderDie" src="sounds/SpiderDie.wav"></audio>
+  </div>
+  <script src="js/bomberman.js"></script>
 </body>
 </html>
