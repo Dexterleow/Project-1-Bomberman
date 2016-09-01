@@ -6,6 +6,10 @@ var gamescore = document.getElementById("gamescore");
 var bombermanLife = document.getElementById("bomberLife");
 console.log(output);
 
+//Intro Sound
+//Sound Effects
+var soundBombermanStart = document.getElementById("bombermanStartingSound");
+soundBombermanStart.play();
 
 //Add a keyboard listener
 window.addEventListener("keydown", keydownHandler, false);
@@ -100,6 +104,7 @@ var score = 0;
 //Initial Life
 var bombermanLife = 1;
 
+//Hero's Movement
 for(var row = 0; row < ROWS; row++)
 {
   for(var column = 0; column < COLUMNS; column++)
@@ -125,6 +130,8 @@ for(var row = 0; row < ROWS; row++)
       monsterColumn_Three = column;
     }
   }
+  var soundBombermanStart = document.getElementById("bombermanStartingSound");
+  soundBombermanStart.play();
 }
 var MonsterMove1 = window.setInterval(moveMonster(monsterRow, monsterColumn,"One"), 600) // Making first monster move
 var MonsterMove2 = window.setInterval(moveMonster(monsterRow_Two, monsterColumn_Two,"Two"), 700) // Making second monster move
@@ -669,6 +676,13 @@ function render()
 
 
 //Sound Effects
+var soundEffect = document.getElementById("bombermanStartingSound");
+soundEffect.play();
+
+
+
+
+
 // trigger audio by calling the play function.
 // var soundEffect = document.getElementById("Win");
 // soundEffect.endGame();

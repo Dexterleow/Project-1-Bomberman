@@ -36,17 +36,17 @@
       </div>
       <div id="stage"></div>
     </section>
-<div id="right-column">
-  <img id ="gamePoster" src="img/Games-Artwork/Super_bomberman_sfc_box_cover.jpg" alt="Original gamePoster">
-  <div id="gameMode">
-<p><b>Mode:</b> Single Player</p>
-<p><b>Platform:</b> Desktop</p>
-<p><b>Dates:</b> 2016 August</p>
+    <div id="right-column">
+      <img id ="gamePoster" src="img/Games-Artwork/Super_bomberman_sfc_box_cover.jpg" alt="Original gamePoster">
+      <div id="gameMode">
+        <p><b>Mode:</b> Single Player</p>
+        <p><b>Platform:</b> Desktop</p>
+        <p><b>Dates:</b> 2016 August</p>
 
-<button id="resetButton" onclick="restart()">Reset Game</button>
+        <button id="resetButton" onclick="restart()">Reset Game</button>
 
-  </div>
-</div>
+      </div>
+    </div>
 
 
 
@@ -55,8 +55,16 @@
     Adding the "autoplay" attribute will make the audio start automatically.
     Adding the "loop" attribute will make the audio play forever.
   -->
-  <audio id="background" autoplay loop src="sounds/05-level-2 (1).mp3"></audio>
-  <audio id="Win" src="sounds/10-stage-complete (1).mp3"></audio>
+  <audio id="bombermanStartingSound" src="sounds/BombermanStartingSound.wav"></audio>
+  <!-- <audio id="background" autoplay loop src="sounds/05-level-2 (1).mp3"></audio> -->
+
+  <audio id="bombermanMovementSounds" src="sounds/PLAYER_WALK.wav"></audio>
+  <audio id="plantBombSounds" src="sounds/BOM_SET.wav.wav"></audio>
+  <audio id="explodedBombSounds" src="sounds/ExplodedBomb.wav"></audio>
+  <audio id="winSounds" src="sounds/10-stage-complete (1).mp3"></audio>
+  <audio id="gameOverSOunds" src="sounds/Game-over (1).mp3"></audio>
+
+
   <!-- not done with the sounds -->
   <!-- The real music of Bomberman -->
 </div>
