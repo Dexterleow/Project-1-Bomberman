@@ -450,6 +450,7 @@ function moveMonster(rowParameter, columnParameter, WhichMonster) //Movement for
         gameObjects[rowParameter][columnParameter] = 0;
          clearInterval(MonsterMove1);
         }
+        break;
 
       case "Two":
       monsterRow_Two = rowParameter;
@@ -459,6 +460,7 @@ function moveMonster(rowParameter, columnParameter, WhichMonster) //Movement for
       gameObjects[rowParameter][columnParameter] = 0;
        clearInterval(MonsterMove2);
       }
+      break;
 
       case "Three":
       monsterRow_Three = rowParameter;
