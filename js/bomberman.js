@@ -93,6 +93,10 @@ var bombColumn
 // var monsterRow_Five;
 // var monsterColumn_Five;
 
+//Initial Score
+var score = 0;
+
+
 for(var row = 0; row < ROWS; row++)
 {
   for(var column = 0; column < COLUMNS; column++)
@@ -453,6 +457,8 @@ function moveMonster(rowParameter, columnParameter, WhichMonster) //Movement for
         clearInterval(MonsterMove1);
         monsterRow = -5; // Change Monster Value to something else so that Monter is dead permanently
         monsterColumn = -5;
+
+        score = score + 500;
       }
       break;
 
@@ -465,6 +471,8 @@ function moveMonster(rowParameter, columnParameter, WhichMonster) //Movement for
         clearInterval(MonsterMove2);
         monsterRow_Two = -5; // Change Monster Value to something else so that Monter is dead permanently
         monsterColumn_Two = -5;
+
+        score = score + 500;
       }
       break;
 
@@ -477,6 +485,8 @@ function moveMonster(rowParameter, columnParameter, WhichMonster) //Movement for
         clearInterval(MonsterMove3);
         monsterRow_Three = -5; // Change Monster Value to something else so that Monter is dead permanently
         monsterColumn_Three = -5;
+
+        score = score + 500;
       }
     }
   }
@@ -504,7 +514,9 @@ function endGame(scenario) {
   var End = false;
 
   if (scenario === "SavePrincess") {
-    var score = 0;
+
+    score = score + 10000;
+
     //Display the game message
     gameMessage = "You've saved the PRINCESS! :) " + " Final Score: " + score;
 
@@ -530,48 +542,6 @@ function endGame(scenario) {
   }
 
 }
-
-
-
-//
-// var gameMessage =""
-//
-// function endGame() {
-//   if(map[heroRow][heroColumn] === PRINCESS)
-//   {
-//     //Calculate the score
-//     var score = 0;
-//     //Display the game message
-//     gameMessage = "You've saved the PRINCESS! :) " + " Final Score: " + score;
-//   }
-//   else if ((heroRow === monsterRow) && (heroColumn === monsterColumn))
-//   {
-//     gameMessage = "Your hero has been swallowed by a monster!";
-//     console.log(gameMessage);
-//   }
-//   else if ((heroRow === monsterRow_Two) && (heroColumn === monsterColumn_Two))
-//   {
-//     gameMessage
-//       = "Your hero has been swallowed by a monster!";
-//       console.log(gameMessage);
-//   }
-//   else if ((heroRow === monsterRow_Three) && (heroColumn === monsterColumn_Three))
-//   {
-//     gameMessage
-//       = "Your hero has been swallowed by a monster!";
-//       console.log(gameMessage);
-//   }  // else if (gameObjects[princessRow][princessColumn] === 0) //You killed the princess. Find out if map array has -1
-//   // {
-//   //   gameMessage
-//   //     = "You bombed and killed the PRINCESS! Game Over!";
-//   // }
-//   else
-//   {
-//     console.log("")
-//   }
-//   //Remove the keyboard listener to end the game
-//   window.removeEventListener("keydown", keydownHandler, false);
-// }
 
 function render()
 {
@@ -604,31 +574,31 @@ function render()
       switch(map[row][column])
       {
         case STANDARDTILE:
-        cell.src = "/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/standardTile.png";
+        cell.src = "img/Games-Artwork/standardTile.png";
         break;
 
         case SOFTWALL:
-        cell.src = "/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/softWall.png";
+        cell.src = "img/Games-Artwork/softWall.png";
         break;
 
         case HARDWALL:
-        cell.src = "/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/hardWall.png";
+        cell.src = "img/Games-Artwork/hardWall.png";
         break;
 
         case PRINCESS:
-        cell.src = "/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/httpbakugaiden.proboards.png";
+        cell.src = "img/Games-Artwork/httpbakugaiden.proboards.png";
         break;
       }
 
       switch(bombArray[row][column])
       {
         case BOMB:
-        cell.src ="/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/Smoothie_Smash_Bomb.gif";
+        cell.src ="img/Games-Artwork/Smoothie_Smash_Bomb.gif";
 
         break;
 
         case FIRE:
-        cell.src ="/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/Fire_gif.gif";
+        cell.src ="img/Games-Artwork/Fire_gif.gif";
 
         break;
 
@@ -641,23 +611,23 @@ function render()
       {
 
         case STANDARDTILE2:
-        cell.src = "/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/standardTile.png";
+        cell.src = "img/Games-Artwork/standardTile.png";
         break;
 
         case HERO:
-        cell.src ="/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/bomberman.gif"
+        cell.src ="img/Games-Artwork/bomberman.gif"
         break;
 
         case MONSTER:
-        cell.src = "/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/botSpider.png";
+        cell.src = "img/Games-Artwork/botSpider.png";
         break;
 
         case MONSTER_TWO:
-        cell.src = "/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/botSpider.png";
+        cell.src = "img/Games-Artwork/botSpider.png";
         break;
 
         case MONSTER_THREE:
-        cell.src = "/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/botSpider.png";
+        cell.src = "img/Games-Artwork/botSpider.png";
         break;
 
         // case MONSTER_FOUR:

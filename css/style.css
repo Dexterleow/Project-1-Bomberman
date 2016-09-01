@@ -1,7 +1,15 @@
 
 @font-face {
   font-family: BombermanFont;
-  src: url(/Users/dexterleow/Desktop/Project-1-Bomberman/fonts/ufonts.com_bomberman.ttf);
+  src: url(fonts/ufonts.com_bomberman.ttf);
+}
+
+#bombermanface
+{
+  height: 5px;
+  width: 56px;
+  margin-top:10px;
+  marign-right:10px;
 }
 
 #container {
@@ -13,6 +21,8 @@
 
 #left-column {
   float: left;
+  font-size: 24px;
+  font-family: 'Slabo 27px', serif;
   background-color: lightblue;
   border: 1px;
   width: 250px;
@@ -27,7 +37,7 @@
 {
   text-align: center;
   font-family: BombermanFont;
-  src: url(/Users/dexterleow/Desktop/Project-1-Bomberman/fonts/ufonts.com_bomberman.ttf);
+  src: url(fonts/ufonts.com_bomberman.ttf);
   font-size: 30px;
   width: 828px;
   height:100px;
@@ -74,7 +84,7 @@
   line-height: 70px;
   text-align: center;
   font-family: BombermanFont;
-  src: url(/Users/dexterleow/Desktop/Project-1-Bomberman/fonts/ufonts.com_bomberman.ttf);
+  src: url(../fonts/ufonts.com_bomberman.ttf);
   font-size: 10px;
   width: 380px !important;
   height:70px;
@@ -88,6 +98,8 @@
   z-index: 2;
   /*position: absolute */
 }
+
+
 
 body {
   background-color: #a7c299;

@@ -5,25 +5,34 @@
   <title>Special Bomberman</title>
   <script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
   <link href="css/style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
 </head>
 <body>
 
   <div id="container">
 
     <div id="left-column">
-      <p>  Instructions:</p>
+      <p> <b> Instructions:</b></p>
 
 
-      Use your arrow keys to move Bomberman through the maze.
+      <p>      Use your keyboard's arrow keys to move Bomberman through the map! </p>
 
-
+      <p>Press Spacebar to set bombs to destroy the enemies on the map!</p>
       <p>Objective: Save the Princess! </p>
     </div>
 
     <section id="game"> <!-- right-column -->
       <!-- <h1>Super Bomberman Remake</h1> -->
       <div id="gameboard">
-        <div class="b" id="bombermanLife"></div>
+        <div class="b" id="bombermanLife">
+          <div id ="bombermanface">
+            <img src="img/Games-Artwork/life_bomberman.jpg" alt="Bomberman face">
+          </div>
+
+
+        </div>
+
+
         <div class="b" id="gamescore"></div>
         <!-- <div class="b" id="clock"></div> -->
         <p class="b" id="output"></p>
@@ -32,20 +41,20 @@
     </section>
 
     <!--
-      An audio tag without "controls" will be invisible.
-      Adding the "autoplay" attribute will make the audio start automatically.
-      Adding the "loop" attribute will make the audio play forever.
-    -->
+    An audio tag without "controls" will be invisible.
+    Adding the "autoplay" attribute will make the audio start automatically.
+    Adding the "loop" attribute will make the audio play forever.
+  -->
 
-    <!-- <audio id="background" autoplay loop src="sounds/05-level-2 (1).mp3"></audio> -->
-    <audio id="Win" src="sounds/10-stage-complete (1).mp3"></audio>
-    <!-- not done with the sounds -->
-     <!-- The real music of Bomberman -->
+  <!-- <audio id="background" autoplay loop src="sounds/05-level-2 (1).mp3"></audio> -->
+  <audio id="Win" src="sounds/10-stage-complete (1).mp3"></audio>
+  <!-- not done with the sounds -->
+  <!-- The real music of Bomberman -->
 
 
-  </div>
+</div>
 
-  <script src="js/bomberman.js"></script>
+<script src="js/bomberman.js"></script>
 
 
 </body>
