@@ -6,14 +6,10 @@ var gamescore = document.getElementById("gamescore");
 var bombermanLife = document.getElementById("bomberLife");
 console.log(output);
 
-//Intro Sound
-//Sound Effects
-var soundBombermanStart = document.getElementById("bombermanStartingSound");
-soundBombermanStart.play();
 
 //Add a keyboard listener
 window.addEventListener("keydown", keydownHandler, false);
-var Render = window.setInterval(render, 50); // Render the game constantly so that it will look 'live'
+var Render = window.setInterval(render, 50); // Render the game constantly
 
 
 function restart() {
@@ -130,8 +126,6 @@ for(var row = 0; row < ROWS; row++)
       monsterColumn_Three = column;
     }
   }
-  var soundBombermanStart = document.getElementById("bombermanStartingSound");
-  soundBombermanStart.play();
 }
 var MonsterMove1 = window.setInterval(moveMonster(monsterRow, monsterColumn,"One"), 600) // Making first monster move
 var MonsterMove2 = window.setInterval(moveMonster(monsterRow_Two, monsterColumn_Two,"Two"), 700) // Making second monster move
@@ -168,6 +162,7 @@ function keydownHandler(event) {
         heroRow++;
       };
       gameObjects[heroRow][heroColumn] = HERO;
+        bomberMoveSounds.play();
     }
     break;
 
@@ -183,6 +178,7 @@ function keydownHandler(event) {
       };
 
       gameObjects[heroRow][heroColumn] = HERO;
+      bomberMoveSounds.play();
     }
     break;
 
@@ -198,6 +194,7 @@ function keydownHandler(event) {
       };
 
       gameObjects[heroRow][heroColumn] = HERO;
+      bomberMoveSounds.play();
     }
     break;
 
@@ -214,6 +211,8 @@ function keydownHandler(event) {
 
 
       gameObjects[heroRow][heroColumn] = HERO;
+      bomberMoveSounds.play();
+
     }
     break;
 
@@ -221,6 +220,7 @@ function keydownHandler(event) {
     {
       console.log("A Bomb has been planted.");
       placeBomb();
+      plantBombSpaceBar.play();
     }
     break;
   }
@@ -252,12 +252,12 @@ function placeBomb(){
       explode(bombRow1,bombColumn1);
     }, 2000);
     console.log("Bomb has been triggered");
-
   }
 
   function burningTileRight(){
     bombArray[bombRow1][bombColumn1 + 1] = 12
   }
+
 
   function clearBurningTileRight() {
     bombArray[bombRow1][bombColumn1 + 1] = 0
@@ -298,6 +298,7 @@ function placeBomb(){
   function explode(bombRow1, bombColumn1){
     //alert('BOOM!');
     bombArray[bombRow1][bombColumn1] = 0;
+    explosionSounds.play();
     //console.log("Row: ", bombRow, "Col: ", bombColumn);
     // if (map[bombRow][++bombColumn] = '0' || map[bombRow][++bombColumn]) = '1') {
 
@@ -466,6 +467,7 @@ function moveMonster(rowParameter, columnParameter, WhichMonster) //Movement for
 
         gameMessage = "Monster Killed!!!";
         score = score + 500;
+        spiderKilled.play();
       }
       break;
 
@@ -481,6 +483,7 @@ function moveMonster(rowParameter, columnParameter, WhichMonster) //Movement for
 
         gameMessage = "Monster Killed!!!";
         score = score + 500;
+        spiderKilled.play();
       }
       break;
 
@@ -496,6 +499,7 @@ function moveMonster(rowParameter, columnParameter, WhichMonster) //Movement for
 
         gameMessage = "Monster Killed!!!";
         score = score + 500;
+        spiderKilled.play();
       }
     }
   }
@@ -535,18 +539,20 @@ function endGame(scenario) {
 
     //Display the game message
     gameMessage = "PRINCESS Saved! :)";
-
+    victorySound.play();
     End = true
 
   } else if (scenario === "KilledByMonster")  {
 
     gameMessage = "Eaten Alive!";
     bombermanLife = 0;
+    gameOverBoo.play();
 
     End = true
   } else if (scenario === "KilledByBomb"){
     gameMessage = "BOOM! In your face!";
     bombermanLife = 0;
+    gameOverBoo.play();
 
     End = true
   } else {
@@ -625,9 +631,6 @@ function render()
 
         break;
 
-        // case PRINCESS: Victory Dance?
-        //   cell.src = "../images/PRINCESS.png";
-        //   break;
       }
       //Add the hero and monster from the gameObjects array
       switch(gameObjects[row][column])
@@ -676,15 +679,11 @@ function render()
 
 
 //Sound Effects
-var soundEffect = document.getElementById("bombermanStartingSound");
-soundEffect.play();
-
-
-
-
-
-// trigger audio by calling the play function.
-// var soundEffect = document.getElementById("Win");
-// soundEffect.endGame();
-
-//collision detection.
+var gameStartSound = document.getElementById("bombermanStartingSound");
+gameStartSound.play(); //IntroSound
+var bomberMoveSounds = document.getElementById("bombermanMovementSounds"); //Movement Sound
+var plantBombSpaceBar = document.getElementById("plantBombSounds"); //Plant Bomb Sound
+var explosionSounds= document.getElementById("explodedBombSounds"); //Explosion Sound
+var victorySound = document.getElementById("winSounds"); //Victory Sound
+var gameOverBoo = document.getElementById("gameOverSounds"); //Game over Sound
+var spiderKilled = document.getElementById("spiderDie"); //Spider Die Sound
