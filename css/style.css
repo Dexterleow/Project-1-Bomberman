@@ -41,13 +41,43 @@
 #container {
   background-color: gray;
   height:900px;
-  width:1200px;
+  width:1500px;
   margin: auto;
 }
 
+#right-column {
+    display: inline-block;
+  /*position: relative;*/
+  clear:left;
+  /*float: right;*/
+  overflow:hidden;
+  font-size: 24px;
+  font-family: 'Slabo 27px', serif;
+  background-color: lightblue;
+  border: 1px;
+  width: 250px;
+  height: 810px;
+  padding: 10px;
+  margin-top: 15px;
+  margin-right: 25px;
+  margin-left: 20px;
+}
+
+#game{
+    display: inline-block;
+  clear:left;
+  /*float:right;*/
+  position:relative;
+  width:832px;
+  height: 810px
+  overflow:hidden;
+  /*margin:0 auto;*/
+}
+
 #left-column {
-  position: relative;
+  display: inline-block;
   float: left;
+  position: relative;
   font-size: 24px;
   font-family: 'Slabo 27px', serif;
   background-color: lightblue;
