@@ -8,54 +8,44 @@
   <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
 </head>
 <body>
-
   <div id="container">
-
     <div id="left-column">
       <p> <b> Instructions:</b></p>
-
-
-      <p>      Use your keyboard's arrow keys to move Bomberman through the map! </p>
-
+      <p>Use your keyboard's arrow keys to move Bomberman through the map! </p>
       <p>Press Spacebar to set bombs to destroy the enemies on the map!</p>
-      <p>Objective: Save the Princess! </p>
+      <p><b>Objective:</b></p>
+      <p>Save the Princess! </p>
+      <img id ="bomberman-picture1" src="img/Games-Artwork/bomberman_b_daman__by_invader_kai.png" alt="bomberman-picture1">
     </div>
-
     <section id="game"> <!-- right-column -->
       <!-- <h1>Super Bomberman Remake</h1> -->
       <div id="gameboard">
-        <div class="b" id="bombermanLife">
-          <div id ="bombermanface">
-            <img src="img/Games-Artwork/life_bomberman.jpg" alt="Bomberman face">
+        <div class="b" id="bomberman-life">
+          <div id ="bomberman-face">
+            <img id ="bomberman-face1" src="img/Games-Artwork/bomberman_life.jpg" alt="Bomberman face">
           </div>
-
-
+          <div id="number-of-life">
+              1
+          </div>
         </div>
-
-
-        <div class="b" id="gamescore"></div>
+        <div class="b" id="game-score">
+          GOING TO PUT SCORE HERE.
+        </div>
         <!-- <div class="b" id="clock"></div> -->
         <p class="b" id="output"></p>
       </div>
       <div id="stage"></div>
     </section>
-
     <!--
     An audio tag without "controls" will be invisible.
     Adding the "autoplay" attribute will make the audio start automatically.
     Adding the "loop" attribute will make the audio play forever.
   -->
-
-  <!-- <audio id="background" autoplay loop src="sounds/05-level-2 (1).mp3"></audio> -->
+  <audio id="background" autoplay loop src="sounds/05-level-2 (1).mp3"></audio>
   <audio id="Win" src="sounds/10-stage-complete (1).mp3"></audio>
   <!-- not done with the sounds -->
   <!-- The real music of Bomberman -->
-
-
 </div>
-
 <script src="js/bomberman.js"></script>
-
-
 </body>
 </html>

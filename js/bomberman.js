@@ -650,7 +650,10 @@ function render()
 
   //Display the game message
   output.textContent = gameMessage;
-  console.log(gameMessage);
+  // console.log(gameMessage);
+
+
+
 
   // //Display the player's food, gold, and experience
   // output.innerHTML

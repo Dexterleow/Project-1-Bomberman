@@ -1,15 +1,41 @@
 
 @font-face {
   font-family: BombermanFont;
-  src: url(fonts/ufonts.com_bomberman.ttf);
+  src: url(/Users/dexterleow/Desktop/Project-1-Bomberman/fonts/ufonts.com_bomberman.ttf);
 }
 
-#bombermanface
+#bomberman-picture1{
+  position: absolute;
+  width: 240px;
+  height:228px;
+  bottom:0;
+  margin-bottom: 15px;
+  margin-left: 5px;
+}
+
+#number-of-life{
+  color:white;
+  font-size:40px;
+  vertical-align: middle;
+  line-height: 50px;
+  height:70px;
+  text-align: center;
+  border: 1px solid red;
+  width: 100px;
+  height:60px;
+  margin:10px;
+  float:right;
+  background-color: black;
+}
+
+#bomberman-face1
 {
-  height: 5px;
+  height:56px;
   width: 56px;
   margin-top:10px;
   marign-right:10px;
+  margin-left: 10px;
+  float:left;
 }
 
 #container {
@@ -20,6 +46,7 @@
 }
 
 #left-column {
+  position: relative;
   float: left;
   font-size: 24px;
   font-family: 'Slabo 27px', serif;
@@ -37,7 +64,7 @@
 {
   text-align: center;
   font-family: BombermanFont;
-  src: url(fonts/ufonts.com_bomberman.ttf);
+  /*src: url(/Users/dexterleow/Desktop/Project-1-Bomberman/fonts/ufonts.com_bomberman.ttf);*/
   font-size: 30px;
   width: 828px;
   height:100px;
@@ -78,18 +105,34 @@
   background-color: lightgrey;
 }
 
+#game-score{
+  color:white;
+  font-size:10px;
+  vertical-align: middle;
+  line-height: 50px;
+  height:70px;
+  text-align: center;
+  background-color: black;
+  margin-top: 10px;
+  margin-right: 5px;
+  margin-left: 5px;
+  border: 5px solid red;
+}
+
+
 #output
 {
+  color:white;
   vertical-align: middle;
   line-height: 70px;
   text-align: center;
   font-family: BombermanFont;
-  src: url(../fonts/ufonts.com_bomberman.ttf);
-  font-size: 10px;
+  /*src: url(/Users/dexterleow/Desktop/Project-1-Bomberman/fonts/ufonts.com_bomberman.ttf);*/
+  font-size: 12px;
   width: 380px !important;
   height:70px;
   /*padding: 10px;*/
-  background-color: #f27e05;
+  /*background-color: #f27e05;*/
   /*margin:auto;*/
   margin-top: 10px;
   margin-right: 5px;
@@ -97,9 +140,8 @@
   border: 5px solid red;
   z-index: 2;
   /*position: absolute */
+  background-color: black;
 }
-
-
 
 body {
   background-color: #a7c299;
