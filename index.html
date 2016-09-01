@@ -8,13 +8,43 @@
 </head>
 <body>
 
-  <section id="game">
+  <div id="container">
 
-    <!-- <h1>Super Bomberman Remake</h1> -->
+    <div id="left-column">
+      <p>  Instructions:</p>
 
-    <p id="output"></p>
-    <div id="stage"></div>
-  </section>
+
+      Use your arrow keys to move Bomberman through the maze.
+
+
+      <p>Objective: Save the Princess! </p>
+    </div>
+
+    <section id="game"> <!-- right-column -->
+      <!-- <h1>Super Bomberman Remake</h1> -->
+      <div id="gameboard">
+        <div class="b" id="bombermanLife"></div>
+        <div class="b" id="gamescore"></div>
+        <!-- <div class="b" id="clock"></div> -->
+        <p class="b" id="output"></p>
+      </div>
+      <div id="stage"></div>
+    </section>
+
+    <!--
+      An audio tag without "controls" will be invisible.
+      Adding the "autoplay" attribute will make the audio start automatically.
+      Adding the "loop" attribute will make the audio play forever.
+    -->
+
+    <!-- <audio id="background" autoplay loop src="sounds/05-level-2 (1).mp3"></audio> -->
+    <audio id="Win" src="sounds/10-stage-complete (1).mp3"></audio>
+    <!-- not done with the sounds -->
+     <!-- The real music of Bomberman -->
+
+
+  </div>
+
   <script src="js/bomberman.js"></script>
 
 

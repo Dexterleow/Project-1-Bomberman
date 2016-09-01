@@ -1,3 +1,43 @@
+
+@font-face {
+  font-family: BombermanFont;
+  src: url(/Users/dexterleow/Desktop/Project-1-Bomberman/fonts/ufonts.com_bomberman.ttf);
+}
+
+#container {
+  background-color: gray;
+  height:900px;
+  width:1200px;
+  margin: auto;
+}
+
+#left-column {
+  float: left;
+  background-color: lightblue;
+  border: 1px;
+  width: 250px;
+  height: 810px;
+  padding: 10px;
+  margin-top: 15px;
+  margin-right: 25px;
+  margin-left: 20px;
+}
+
+#gameboard
+{
+  text-align: center;
+  font-family: BombermanFont;
+  src: url(/Users/dexterleow/Desktop/Project-1-Bomberman/fonts/ufonts.com_bomberman.ttf);
+  font-size: 30px;
+  width: 828px;
+  height:100px;
+  padding: 2px;
+  background-color: #f27e05;
+  margin:auto;
+  margin-top: 15px;
+  float:left;
+}
+
 #stage
 {
   position:relative;
@@ -6,8 +46,9 @@
   background-image: url("../img/Games-Artwork/background.jpg");
   margin: auto;
   margin-top: 20px;
-}
+  float: left;
 
+}
 
 .cell
 {
@@ -17,26 +58,37 @@
   height: 64px;
 }
 
-/*h1
-{
-  text-align: center;
-  font-family: Arial;
-  font-size: 50px;
-  background-color: #f27e05;
-}*/
+.b {
+  display: inline-block;
+  position: relative;
+  margin: 1%;
+  float: left;
+  width: 23%;
+  height: 80px;
+  background-color: lightgrey;
+}
 
-p
+#output
 {
-  font-family: Arial;
-  font-size: 30px;
-  width: 828px;
-  height:100px;
-  padding: 10px;
+  vertical-align: middle;
+  line-height: 70px;
+  text-align: center;
+  font-family: BombermanFont;
+  src: url(/Users/dexterleow/Desktop/Project-1-Bomberman/fonts/ufonts.com_bomberman.ttf);
+  font-size: 10px;
+  width: 380px !important;
+  height:70px;
+  /*padding: 10px;*/
   background-color: #f27e05;
-  margin:auto;
+  /*margin:auto;*/
   margin-top: 10px;
+  margin-right: 5px;
+  margin-left: 5px;
+  border: 5px solid red;
+  z-index: 2;
+  /*position: absolute */
 }
 
 body {
-    background-color: #a7c299;
+  background-color: #a7c299;
 }

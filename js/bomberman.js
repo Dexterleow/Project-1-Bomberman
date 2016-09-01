@@ -1,7 +1,9 @@
 
 //Get a reference to the stage and output
 var stage = document.querySelector("#stage");
-var output = document.querySelector("#output");
+var output = document.getElementById("output")
+console.log(output);
+
 
 //Add a keyboard listener
 window.addEventListener("keydown", keydownHandler, false);
@@ -28,8 +30,8 @@ var gameObjects = [
   [0,0,0,0,0,0,0,0,0,0,7,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0,0,4,0],
-  [0,0,0,0,6,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,6,0],
+  [0,0,0,0,4,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -301,7 +303,7 @@ function placeBomb(){
     if (map[bombRow1][bombColumn1] < 2) {
       setTimeout(burningTileCenter,0)
       setTimeout(clearBurningTileCenter, 1000)
-    map[bombRow1][bombColumn1] = 0; // bombed the original bomb spot
+      map[bombRow1][bombColumn1] = 0; // bombed the original bomb spot
 
     }
 
@@ -309,7 +311,7 @@ function placeBomb(){
     if ((map[bombRow1 + 1][bombColumn1]  < 2) && (bombRow1 <= ROWS)) {
       setTimeout(burningTileBelow,0)
       setTimeout(clearBurningTileBelow, 1000)
-    map[bombRow1 + 1][bombColumn1] = 0; //bombed one tile below
+      map[bombRow1 + 1][bombColumn1] = 0; //bombed one tile below
 
     }
 
@@ -317,15 +319,15 @@ function placeBomb(){
     if ((map[bombRow1][bombColumn1 - 1] < 2) && (bombColumn1 >= 0)) {
       setTimeout(burningTileLeft,0)
       setTimeout(clearBurningTileLeft, 1000)
-    map[bombRow1][bombColumn1 - 1] = 0;
+      map[bombRow1][bombColumn1 - 1] = 0;
     }                                  //bombed the left tile
 
     //Above
     if ((map[bombRow1 - 1][bombColumn1] < 2) &&  (bombRow1 >= 0)) {
       setTimeout(burningTileAbove,0)
       setTimeout(clearBurningTileAbove, 1000)
-    map[bombRow1 - 1][bombColumn1] = 0 ; //bombed the above tile
-        //test bomb the spider
+      map[bombRow1 - 1][bombColumn1] = 0 ; //bombed the above tile
+      //test bomb the spider
     }
 
     //console.log(map);
@@ -437,28 +439,32 @@ function moveMonster(rowParameter, columnParameter, WhichMonster) //Movement for
     //console.log(rowParameter, columnParameter);
 
     if (bombArray[rowParameter][columnParameter] === FIRE) {
-     //Kill monster
-     KillMonster = true
+      //Kill monster
+      KillMonster = true
     }
 
     switch (WhichMonster) {
       case "One":
-        monsterRow = rowParameter;
-        monsterColumn = columnParameter;
+      monsterRow = rowParameter;
+      monsterColumn = columnParameter;
 
-        if (KillMonster) {
-        gameObjects[rowParameter][columnParameter] = 0;
-         clearInterval(MonsterMove1);
-        }
-        break;
+      if (KillMonster) {
+        gameObjects[rowParameter][columnParameter] = 0; // Use to change the dead spider image from spider to tile
+        clearInterval(MonsterMove1);
+        monsterRow = -5; // Change Monster Value to something else so that Monter is dead permanently
+        monsterColumn = -5;
+      }
+      break;
 
       case "Two":
       monsterRow_Two = rowParameter;
       monsterColumn_Two = columnParameter;
 
       if (KillMonster) {
-      gameObjects[rowParameter][columnParameter] = 0;
-       clearInterval(MonsterMove2);
+        gameObjects[rowParameter][columnParameter] = 0; // Use to change the dead spider image from spider to tile
+        clearInterval(MonsterMove2);
+        monsterRow_Two = -5; // Change Monster Value to something else so that Monter is dead permanently
+        monsterColumn_Two = -5;
       }
       break;
 
@@ -467,12 +473,12 @@ function moveMonster(rowParameter, columnParameter, WhichMonster) //Movement for
       monsterColumn_Three = columnParameter;
 
       if (KillMonster) {
-      gameObjects[rowParameter][columnParameter] = 0;
-       clearInterval(MonsterMove3);
+        gameObjects[rowParameter][columnParameter] = 0; // Use to change the dead spider image from spider to tile
+        clearInterval(MonsterMove3);
+        monsterRow_Three = -5; // Change Monster Value to something else so that Monter is dead permanently
+        monsterColumn_Three = -5;
       }
-
     }
-
   }
 }
 
@@ -673,12 +679,19 @@ function render()
   endGame(scenario);
 
   //Display the game message
-  output.innerHTML = gameMessage;
+  output.textContent = gameMessage;
+  console.log(gameMessage);
 
   // //Display the player's food, gold, and experience
   // output.innerHTML
   //   += "<br>Gold: " + gold + ", Food: "
   //   + food + ", Experience: " + experience;
 }
+
+
+//Sound Effects
+// trigger audio by calling the play function.
+// var soundEffect = document.getElementById("Win");
+// soundEffect.endGame();
 
 //collision detection.
