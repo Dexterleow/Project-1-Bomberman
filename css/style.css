@@ -1,7 +1,7 @@
 
 @font-face {
   font-family: BombermanFont;
-  src: url(/Users/dexterleow/Desktop/Project-1-Bomberman/fonts/ufonts.com_bomberman.ttf);
+  src: url(/Users/dexterleow/Desktop/Project-1-Bomberman/fonts/press-start/prstart.ttf);
 }
 
 #bomberman-picture1{
@@ -13,19 +13,22 @@
   margin-left: 5px;
 }
 
-#number-of-life{
+#bomberLife{
   color:white;
   font-size:40px;
-  vertical-align: middle;
+  vertical-align: bottom;
+  display:table-cell;
   line-height: 50px;
-  height:70px;
   text-align: center;
   border: 1px solid red;
   width: 100px;
-  height:60px;
-  margin:10px;
+  height:65px;
+  margin-right:10px;
+  margin-left:10px;
+  margin-top: 4px;
   float:right;
   background-color: black;
+  padding-top: 5px;
 }
 
 #bomberman-face1
@@ -43,6 +46,7 @@
   height:900px;
   width:1500px;
   margin: auto;
+  margin-top: 15px;
 }
 
 #right-column {
@@ -64,7 +68,7 @@
 }
 
 #game{
-    display: inline-block;
+  display: inline-block;
   clear:left;
   /*float:right;*/
   position:relative;
@@ -114,7 +118,6 @@
   margin: auto;
   margin-top: 20px;
   float: left;
-
 }
 
 .cell
@@ -135,11 +138,17 @@
   background-color: lightgrey;
 }
 
-#game-score{
+
+/*#game-score span{
+position:absolute;
+bottom:0;
+}*/
+
+#gamescore{
   color:white;
-  font-size:10px;
+  font-size:30px;
   vertical-align: middle;
-  line-height: 50px;
+  line-height: 70px;
   height:70px;
   text-align: center;
   background-color: black;
@@ -149,16 +158,14 @@
   border: 5px solid red;
 }
 
-
 #output
 {
   color:white;
   vertical-align: middle;
-  line-height: 70px;
+  line-height: 90px;
   text-align: center;
-  font-family: BombermanFont;
-  /*src: url(/Users/dexterleow/Desktop/Project-1-Bomberman/fonts/ufonts.com_bomberman.ttf);*/
-  font-size: 12px;
+  font-family:BombermanFont;
+  font-size: 18px;
   width: 380px !important;
   height:70px;
   /*padding: 10px;*/

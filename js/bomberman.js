@@ -1,13 +1,16 @@
 
 //Get a reference to the stage and output
 var stage = document.querySelector("#stage");
-var output = document.getElementById("output")
+var output = document.getElementById("output");
+var gamescore = document.getElementById("gamescore");
+var bombermanLife = document.getElementById("bomberLife");
 console.log(output);
 
 
 //Add a keyboard listener
 window.addEventListener("keydown", keydownHandler, false);
 var Render = window.setInterval(render, 50); // Render the game constantly so that it will look 'live'
+
 
 //The game map
 var map = [
@@ -69,7 +72,6 @@ var STANDARDTILE2 = 10;
 var BOMB = -2;
 var FIRE = 12;
 
-
 //The size of each cell
 var SIZE = 64;
 
@@ -88,14 +90,11 @@ var monsterRow_Three;
 var monsterColumn_Three;
 var bombRow
 var bombColumn
-// var monsterRow_Four;
-// var monsterColumn_Four;
-// var monsterRow_Five;
-// var monsterColumn_Five;
 
 //Initial Score
 var score = 0;
-
+//Initial Life
+var bombermanLife = 1;
 
 for(var row = 0; row < ROWS; row++)
 {
@@ -215,10 +214,8 @@ function keydownHandler(event) {
     break;
   }
 
-
-
   //Find out if the hero is touching the monster
-  endGame();
+  //endGame();
 
 
   //Render the game
@@ -333,8 +330,6 @@ function placeBomb(){
       map[bombRow1 - 1][bombColumn1] = 0 ; //bombed the above tile
       //test bomb the spider
     }
-
-    //console.log(map);
 
 
     bombPack++;
@@ -458,6 +453,7 @@ function moveMonster(rowParameter, columnParameter, WhichMonster) //Movement for
         monsterRow = -5; // Change Monster Value to something else so that Monter is dead permanently
         monsterColumn = -5;
 
+        gameMessage = "Monster Killed!!!";
         score = score + 500;
       }
       break;
@@ -472,6 +468,7 @@ function moveMonster(rowParameter, columnParameter, WhichMonster) //Movement for
         monsterRow_Two = -5; // Change Monster Value to something else so that Monter is dead permanently
         monsterColumn_Two = -5;
 
+        gameMessage = "Monster Killed!!!";
         score = score + 500;
       }
       break;
@@ -486,6 +483,7 @@ function moveMonster(rowParameter, columnParameter, WhichMonster) //Movement for
         monsterRow_Three = -5; // Change Monster Value to something else so that Monter is dead permanently
         monsterColumn_Three = -5;
 
+        gameMessage = "Monster Killed!!!";
         score = score + 500;
       }
     }
@@ -508,27 +506,36 @@ function CheckState() {
 
 
 //endGame scenario
-var gameMessage =""
+var gameMessage ="Bomberman Adventure";
 function endGame(scenario) {
 
   var End = false;
 
   if (scenario === "SavePrincess") {
 
-    score = score + 10000;
+    var final_score = score + 10000;
+
+    if (final_score > 12000) {
+      score = score
+    } else {
+      score = final_score
+    }
+    //score = score + 10000;
 
     //Display the game message
-    gameMessage = "You've saved the PRINCESS! :) " + " Final Score: " + score;
+    gameMessage = "PRINCESS Saved! :)";
 
     End = true
 
   } else if (scenario === "KilledByMonster")  {
 
-    gameMessage = "Your hero has been swallowed by a monster!";
+    gameMessage = "Eaten Alive!";
+    bombermanLife = 0;
 
     End = true
   } else if (scenario === "KilledByBomb"){
     gameMessage = "BOOM! In your face!";
+    bombermanLife = 0;
 
     End = true
   } else {
@@ -536,9 +543,14 @@ function endGame(scenario) {
   }
 
   if (End) {
-    gameObjects[heroRow][heroColumn] = 0;
+
+    if (scenario === "KilledByMonster") {
+    gameObjects[heroRow][heroColumn] = 4
+  } else {
+    gameObjects[heroRow][heroColumn] = 0
+  }
     window.removeEventListener("keydown", keydownHandler, false);
-    setTimeout(function( ) { clearInterval(Render); }, 100);
+    setTimeout(function( ) { clearInterval(Render); }, 50);
   }
 
 }
@@ -630,13 +642,6 @@ function render()
         cell.src = "img/Games-Artwork/botSpider.png";
         break;
 
-        // case MONSTER_FOUR:
-        // cell.src = "/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/botSpider.png";
-        // break;
-        //
-        // case MONSTER_FIVE:
-        // cell.src = "/Users/dexterleow/Desktop/Project-1-Bomberman/img/Games-Artwork/botSpider.png";
-        // break;
       }
 
       //Position the cell
@@ -644,21 +649,18 @@ function render()
       cell.style.left = column * SIZE + "px";
     }
   }
-
+  //console.log(score);
   CheckState();
   endGame(scenario);
 
   //Display the game message
   output.textContent = gameMessage;
   // console.log(gameMessage);
+  //Display the score
+  gamescore.innerHTML = score;
 
+  bomberLife.innerHTML = bombermanLife;
 
-
-
-  // //Display the player's food, gold, and experience
-  // output.innerHTML
-  //   += "<br>Gold: " + gold + ", Food: "
-  //   + food + ", Experience: " + experience;
 }
 
 
