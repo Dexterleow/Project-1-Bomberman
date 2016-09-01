@@ -12,6 +12,10 @@ window.addEventListener("keydown", keydownHandler, false);
 var Render = window.setInterval(render, 50); // Render the game constantly so that it will look 'live'
 
 
+function restart() {
+    document.location.href="";
+}
+
 //The game map
 var map = [
   [0,0,0,1,1,0,0,0,1,0,0,0,0],

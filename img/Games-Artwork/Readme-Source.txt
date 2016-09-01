@@ -22,3 +22,6 @@ httpbakugaiden.proboards
 
 7. Wallpaper background
 http://wallpaper.zone/wallpaper/2260196
+
+8.Bomberman Artwork & Gamebox Cover (By: Produce! & Mattel)
+http://bomberman.wikia.com/wiki/Super_Bomberman

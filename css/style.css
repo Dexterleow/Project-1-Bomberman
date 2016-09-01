@@ -42,7 +42,7 @@
 }
 
 #container {
-  background-color: gray;
+  background-color: #a7c299;
   height:900px;
   width:1500px;
   margin: auto;
@@ -50,14 +50,14 @@
 }
 
 #right-column {
-    display: inline-block;
+  display: inline-block;
   /*position: relative;*/
   clear:left;
   /*float: right;*/
   overflow:hidden;
   font-size: 24px;
   font-family: 'Slabo 27px', serif;
-  background-color: lightblue;
+  background-color: #a7c299;
   border: 1px;
   width: 250px;
   height: 810px;
@@ -84,7 +84,7 @@
   position: relative;
   font-size: 24px;
   font-family: 'Slabo 27px', serif;
-  background-color: lightblue;
+  background-color: #a7c299;
   border: 1px;
   width: 250px;
   height: 810px;
@@ -178,6 +178,26 @@ bottom:0;
   z-index: 2;
   /*position: absolute */
   background-color: black;
+}
+
+#gamePoster{
+  width:245px;
+  height: 450px;
+}
+
+#gameMode{
+  text-align: center;
+}
+
+#resetButton {
+    background-color: #4CAF50; /* Green */
+    border: 2px solid black;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
 }
 
 body {
