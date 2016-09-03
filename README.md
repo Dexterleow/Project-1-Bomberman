@@ -1,8 +1,14 @@
 # Project-1-Bomberman
 
-Explanations of the technologies used:
+ Explanations of the technologies used:
 
 HTML, CSS & Vanilla Javascript
+
+## Preview
+
+Inline-style:
+![alt text](https://github.com/Dexterleow/Project-1-Bomberman/tree/master/img/Preview.png "Preview")
+
 
 The approach taken:
 

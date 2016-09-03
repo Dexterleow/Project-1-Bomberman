@@ -347,7 +347,8 @@ function placeBomb(){
 
 function moveMonster(rowParameter, columnParameter, WhichMonster) //Movement for monster.no1
 {
-  return function() {
+   return function() 
+  {
     //The 4 possible directions that the monster can move
     var UP = 1;
     var DOWN = 2;
