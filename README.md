@@ -6,7 +6,7 @@ HTML, CSS & Vanilla Javascript
 
 ## Preview
 
-Inline-style:
+Screenshot:
 ![alt text](https://github.com/Dexterleow/Project-1-Bomberman/blob/gh-pages/img/Preview.png "Preview")
 
 
