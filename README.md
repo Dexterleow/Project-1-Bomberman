@@ -18,10 +18,10 @@ In addition, arrays were also used as an important foundation to set-up the tili
 
 Unsolved problems, etc:
 
-The game is functional and CSS & Sounds have also been added to enhance the gameplay.
+The game is functional and CSS & Sounds have also been added to enhance the gameplay. 
 
 Future development will be to customize the framework to a object-oriented framework to enable effective and rapid scaling of the game.
 
 With object-oriented design, it will be much easier to add in new character, monsters, maps and multiplayers options.
 
-Finally, instead of manually setting up the map (game stage), maps' counters and their variables ought to be randomize to efficiently create more levels for the game. 
+Finally, instead of manually setting up the map (game stage), maps' counters and their variables ought to be randomize to efficiently create more levels for the game.
