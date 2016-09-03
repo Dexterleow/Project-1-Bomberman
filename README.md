@@ -7,7 +7,7 @@ HTML, CSS & Vanilla Javascript
 ## Preview
 
 Inline-style:
-![alt text](https://github.com/Dexterleow/Project-1-Bomberman/tree/master/img/Preview.png "Preview")
+![alt text](https://github.com/Dexterleow/Project-1-Bomberman/blob/gh-pages/img/Preview.png "Preview")
 
 
 The approach taken:
