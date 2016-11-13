@@ -25,3 +25,6 @@ Future development will be to customize the framework to a object-oriented frame
 With object-oriented design, it will be much easier to add in new character, monsters, maps and multiplayers options.
 
 Finally, instead of manually setting up the map (game stage), maps' counters and their variables ought to be randomize to efficiently create more levels for the game.
+
+You may play the game here:
+https://dexterleow.github.io/Project-1-Bomberman/
