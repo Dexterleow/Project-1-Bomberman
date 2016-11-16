@@ -68,8 +68,8 @@ var MONSTER = 4;
 var HERO = 5; //Player Character
 var MONSTER_TWO = 6;
 var MONSTER_THREE = 7;
-var MONSTER_FOUR = 8;
-var MONSTER_FIVE = 9;
+// var MONSTER_FOUR = 8;
+// var MONSTER_FIVE = 9;
 var STANDARDTILE2 = 10;
 var BOMB = -2;
 var FIRE = 12;
@@ -223,10 +223,6 @@ function keydownHandler(event) {
     break;
   }
 
-  //Find out if the hero is touching the monster
-  //endGame();
-
-
   //Render the game
   render();
 }
@@ -252,45 +248,38 @@ function placeBomb(){
     console.log("Bomb has been triggered");
   }
 
+
+
+//clearing tiles and changing the image back to standardtile
+function clearTiles(){
+  bombArray[bombRow1][bombColumn1 + 1] = 0; //right
+  bombArray[bombRow1][bombColumn1] = 0; //center
+  bombArray[bombRow1 + 1][bombColumn1] = 0; //below
+  bombArray[bombRow1][bombColumn1 - 1] = 0; //left
+  bombArray[bombRow1 - 1][bombColumn1] = 0; //above
+}
+//
+
   function burningTileRight(){
     bombArray[bombRow1][bombColumn1 + 1] = 12
-  }
-
-  function clearBurningTileRight() {
-    bombArray[bombRow1][bombColumn1 + 1] = 0
   }
 
   function burningTileCenter(){
     bombArray[bombRow1][bombColumn1] = 12
   }
 
-  function clearBurningTileCenter() {
-    bombArray[bombRow1][bombColumn1] = 0
-  }
-
   function burningTileBelow(){
     bombArray[bombRow1 + 1][bombColumn1] = 12
-  }
-
-  function clearBurningTileBelow() {
-    bombArray[bombRow1 + 1][bombColumn1] = 0
   }
 
   function burningTileLeft(){
     bombArray[bombRow1][bombColumn1 - 1] = 12
   }
 
-  function clearBurningTileLeft() {
-    bombArray[bombRow1][bombColumn1 - 1] = 0
-  }
-
   function burningTileAbove(){
     bombArray[bombRow1 - 1][bombColumn1] = 12
   }
 
-  function clearBurningTileAbove() {
-    bombArray[bombRow1 - 1][bombColumn1] = 0
-  }
 
   function explode(bombRow1, bombColumn1){
     //alert('BOOM!');
@@ -302,7 +291,7 @@ function placeBomb(){
     //Right. < 2 as only 1 and 0 variables of softwall and standardtile can be bombed
     if ((map[bombRow1][bombColumn1 + 1] < 2) && (bombColumn1 <= COLUMNS)) {
       setTimeout(burningTileRight,0)
-      setTimeout(clearBurningTileRight, 1000)
+      setTimeout(clearTiles, 1000)
       //console.log("There's a fire");
       map[bombRow1][bombColumn1 + 1] = 0;
       //test bomb the spider
@@ -312,7 +301,7 @@ function placeBomb(){
     //Useless, player cannot move to non-movable tiles
     if (map[bombRow1][bombColumn1] < 2) {
       setTimeout(burningTileCenter,0)
-      setTimeout(clearBurningTileCenter, 1000)
+      setTimeout(clearTiles, 1000)
       map[bombRow1][bombColumn1] = 0; // bombed the original bomb spot
 
     }
@@ -320,7 +309,7 @@ function placeBomb(){
     //Below
     if ((map[bombRow1 + 1][bombColumn1]  < 2) && (bombRow1 <= ROWS)) {
       setTimeout(burningTileBelow,0)
-      setTimeout(clearBurningTileBelow, 1000)
+      setTimeout(clearTiles, 1000)
       map[bombRow1 + 1][bombColumn1] = 0; //bombed one tile below
 
     }
@@ -328,14 +317,14 @@ function placeBomb(){
     //Left
     if ((map[bombRow1][bombColumn1 - 1] < 2) && (bombColumn1 >= 0)) {
       setTimeout(burningTileLeft,0)
-      setTimeout(clearBurningTileLeft, 1000)
+      setTimeout(clearTiles, 1000)
       map[bombRow1][bombColumn1 - 1] = 0;
     }                                  //bombed the left tile
 
     //Above
     if ((map[bombRow1 - 1][bombColumn1] < 2) &&  (bombRow1 >= 0)) {
       setTimeout(burningTileAbove,0)
-      setTimeout(clearBurningTileAbove, 1000)
+      setTimeout(clearTiles, 1000)
       map[bombRow1 - 1][bombColumn1] = 0 ; //bombed the above tile
       //test bomb the spider
     }
@@ -345,9 +334,9 @@ function placeBomb(){
   console.log("Change the softWall into standardTile")
 }
 
-function moveMonster(rowParameter, columnParameter, WhichMonster) //Movement for monster.no1
+function moveMonster(rowParameter, columnParameter, WhichMonster) //Movement for monsters
 {
-   return function() 
+   return function()
   {
     //The 4 possible directions that the monster can move
     var UP = 1;
@@ -400,7 +389,7 @@ function moveMonster(rowParameter, columnParameter, WhichMonster) //Movement for
       }
     }
 
-    //console.log(validDirections);
+    // console.log(validDirections);
 
     //The validDirections array now contains 0 to 4 directions that the
     //contain STANDARDTILE cells. Which of those directions will the monster
@@ -575,6 +564,7 @@ function render()
   //from the previous turn
 
   if(stage.hasChildNodes())
+  //running if statement to determine if there is Child Nodes (Nodes is (HTML Elements)) to render the game
   {
     for(var i = 0; i < ROWS * COLUMNS; i++)
     {
